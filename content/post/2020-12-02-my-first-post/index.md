@@ -1,11 +1,7 @@
 ---
-site: blogdown:::blogdown_site
-output: pdf_document
----
----
 title: My first post
-author: Abby Willard
-date: '2020-12-03'
+author: Abby Willar
+date: '2020-12-02'
 slug: my-first-post
 categories: [introduction, R, data science]
 tags: [R, blogdown]

@@ -1,0 +1,105 @@
+---
+title: "DASC 1104 Project Proposal"
+output:
+  pdf_document: default
+  html_document: default
+---
+```{r}
+library(tinytex)
+
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+My blog is accessible at the link: https://nifty-wozniak-e3e1d9.netlify.app
+
+```{r}
+dat<- read_csv(here::here("data", "tidytuesday", "data", "2020", "2020-03-24", "tbi_age.csv"
+))
+dat1<- read_csv(here::here("data", "tidytuesday", "data", "2020", "2020-03-24", "tbi_year.csv"
+))
+dat2<- read_csv(here::here("data", "tidytuesday", "data", "2020", "2020-03-24", "tbi_military.csv"
+))
+
+```
+
+```{r}
+glimpse(dat)
+```
+
+```{r}
+glimpse(dat1)
+
+```
+
+
+```{r}
+glimpse(dat2)
+
+```
+
+
+1. Traumatic Brain Injuries 
+For this project, I am examining the traumatic brain injury (TBI) within the data set tbi_age.csv file from the Tidy Tuesday website. The data set has 216 observations of 5 variables. The variable age_group is a factor of 231 levels that represents the age groups of victims of TBI. The variable type is a factor of 231 levels that represents the where the victim went to treat their injury, or the effect of the injury. The variable injury_mechanism is a factor of 231 levels that represents how the victim obtained their injury. The variable number_set is a factor of 231 levels that represents the estimated observed cases in 2014.The variable rate_est is a factor of 231 levels that represents the where the victim went to treat their injury.
+
+With the second, tbi_year.csv data set from Tidy Tuesday website further examines these injuries. The data set has 216 observations of 5 variables. The variable injury_mechanism is a factor of 216 levels that represents how the injury was received. The variable type is a factor of 216 levels that represents went to treat their injury, or the effect of the injury. The variable year is a factor of 216 levels that represents the year of the injury. The variable rate_est is a factor of 216 levels that rate/100,000 in 2014. The variable number_est is a factor of 216 levels that represents estimated observed cases in each year.
+
+The last data set, tbi_military.csv from Tidy Tuesday specifically delves into brain injuries specifically from military personnel. The data set has 450 observations and 5 variables. The variable service is a factor of 450 levels that represents the military branch of the victim's branch. The variable component is a factor of 450 levels that represents whether the victim is active, guard, or reserve). The variable type is a severity of 450 levels that represents the severity of the injury. The variable diagnosed is a factor of 450 levels that represents the number of diagnoses per year. The variable year is a factor of 450 levels that represents year the injury was observed.
+
+
+Question 1: What age group is most likely to receive a traumatic brain injury from which injury mechanism?
+To determine this relationship, I will examine a graph relating the age groups to the different injury mechanisms. As well, I want to observe this in a box plot, allowing easy observation over the median, minimum, and maximum ages these injury mechanisms occur. 
+
+Question 2: As the prevalence of TBI has increased in the military branches, has there been any decrease in the amount of concussions diagnosed throughout the years? If not, has severity at least lessened throughout the years?
+To determine, I will generate a graph to visualize the number of diagnosed and year of diagnoses, as well as a visualization of the severity of the TBI compared to the year of diagnoses. 
+
+Question 3: Throughout the different data sets, are deaths from TBI age based or severity based? 
+To determine, I will create 2 graphics for each data set, one comparing the ages of the victims to the deaths in that data set, as well as a graphic between the type or severity of the TBI to the deaths.
+
+
+
+```{r}
+dat3<- read_csv(here::here("data", "tidytuesday", "data", "2020", "2020-08-18", "plants.csv"
+))
+dat4<- read_csv(here::here("data", "tidytuesday", "data", "2020", "2020-08-18", "threats.csv"
+))
+dat5<- read_csv(here::here("data", "tidytuesday", "data", "2020", "2020-08-18", "actions.csv"
+))
+
+
+```
+
+```{r}
+glimpse(dat3)
+
+```
+
+```{r}
+glimpse(dat4)
+
+```
+
+
+```{r}
+glimpse(dat5)
+
+```
+
+2. Plants in Danger
+For this project, I am examining plants in danger within the data set plants.csv file from the Tidy Tuesday website. The data set has 500 observations of 24 variables. The variable bionomial_name is a factor of 500 levels that represents the species name (Genus + species). The variable country is a factor of 500 levels that represents the country the plant is origin to. The variable continent is a factor of 500 levels that represents the continent the plant originated. The variable group is a factor of 500 levels that represents the taxonomic group of the plant.The variable year_last_seen is a factor of 500 levels that represents the last year the plant was last seen. The next 12 variables all have 500 levels and describe the different threats of the plants (AA - agriculture & aquaculture, BRU- biological resource use, RDC-commercial development, ISGD -invasive species, EPM - energy production and mining, CC- climate change, HID -human intrusions, P- pollution, TS- transportation corridor, NSM- natural systems modifications, GE- geological events, NA- unknown).
+
+The next data set, threats.csv, has 6,000 observations and 5 variables. The variable bionomial_name is factor of 6000 levels that represent the species name (Genus + species). The variable country is factor of 6000 levels that represent the species original location.The variable continent is factor of 6000 levels that represent the species originating continent. The variable group is factor of 6000 levels that represent the taxonomic group the plant belongs to. The variable year_last_seen is factor of 6000 levels the last calendar year the plant was seen.The variable red_list_category is factor of 6000 levels that represent the IUCN Red List category. The variable threat_type is factor of 6000 levels that represent the type of threat the plants are in, from the last data set. The variable threatened is factor of 6000 levels that represent a binary of 0 (action not taken) or 1 (aciton taken).
+
+The last data set, actions.csv has 3000 observations and 8 variables.
+The variable bionomial_name is factor of 3000 levels that represent the species name (Genus + species). The variable country is factor of 3000 levels that represent the species original location.The variable continent is factor of 3000 levels that represent the species originating continent. The variable group is factor of 3000 levels that represent the taxonomic group the plant belongs to. The variable year_last_seen is factor of 3000 levels the last calendar year the plant was seen.The variable red_list_category is factor of 3000 levels that represent the IUCN Red List category. The variable action_type is factor of 3000 levels that represent the type of action the plant has had.The variable action_taken is factor of 3000 levels that represent a binary of 0 (action not taken) or 1 (action taken).
+
+Question 1: Do countries with significant amounts of plants in danger occupy a lot of the action to maintain the longevity of the plant health? 
+Determine the relationship between country and the different plants as well as the relationship between country and the action type, with graphics describing such relationships.
+
+Question 2: Is there trend in the threat type that came help determine the action type that needs to be enforced?
+To determine, filter the data to match what the threat was and whether or not action was taken to deter that threat. 
+
+Question 3: Was there an event in recent history that wiped out, or put multiple plant species in danger? 
+To determine, I will create a graphic graphing the year the plants were last seen as well as the threat the plants are/were in. 
+
