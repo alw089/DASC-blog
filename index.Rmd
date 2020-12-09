@@ -3,7 +3,7 @@ site: blogdown:::blogdown_site
 output: pdf_document
 ---
 ---
-title: My first post
+title: TBI Page
 author: Abby Willard
 date: '2020-12-03'
 slug: my-first-post
@@ -17,5 +17,5 @@ i like the pengiuns
 
 ```{r}
 library(tidyverse)
-
+library(tinytex)
 ```
