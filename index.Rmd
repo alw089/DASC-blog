@@ -28,7 +28,7 @@ To determine this relationship, I will examine a graph relating the age groups t
 ```{r}
 library(ggplot2)
 ggplot(data =dat)+
-  geom_bar(mapping = aes(y = age_group, x = injury_mechanism ))+
+  geom_point(mapping = aes(x = age_group, y = number_est, color = injury_mechanism ))+
   xlab("Injury Mechanism") +
   ylab("Age Group") +
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))
@@ -44,11 +44,11 @@ To determine, I will generate a graph to visualize the number of diagnosed and y
 
 ```{r}
 ggplot(data = dat2)+
-  geom_point(mapping = aes(y = diagnosed, x = severity ))+
+  geom_boxplot(mapping = aes(y = diagnosed, x = factor(year) , color = service))+
+
    ylab("number of diagnoses") +
-    xlab("level of severity") +
-    theme(legend.position = "none")+
-    facet_wrap(~ year)+
+    xlab("year") +
+    facet_wrap(~ severity, scale = "free")+
     theme(axis.text.x = element_text(angle =- 45, hjust = 0))
     ggtitle("Number of diagnoses compared to its severity per year  ")
 
@@ -56,11 +56,11 @@ ggplot(data = dat2)+
 
     
 ```
-
+Of the brain injuries, there is not much to very little change in the data as years progress for the different levels of severity. 
 ```{r}
 
 ggplot(data = dat2)+
-  geom_point(mapping = aes(y = diagnosed, x = year ))
+  geom_point(mapping = aes(y = diagnosed, x = year , color = service))
 
 
 
