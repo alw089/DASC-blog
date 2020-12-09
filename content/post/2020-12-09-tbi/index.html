@@ -11,4 +11,97 @@ tags: []
 <script src="index_files/anchor-sections/anchor-sections.js"></script>
 
 
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.2.1     ✓ purrr   0.3.3
+## ✓ tibble  2.1.3     ✓ dplyr   0.8.3
+## ✓ tidyr   1.0.0     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.4.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(tinytex)</code></pre>
+<pre class="r"><code>dat&lt;- read_csv(here::here(&quot;data&quot;, &quot;tidytuesday&quot;, &quot;data&quot;, &quot;2020&quot;, &quot;2020-03-24&quot;, &quot;tbi_age.csv&quot;
+))</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   age_group = col_character(),
+##   type = col_character(),
+##   injury_mechanism = col_character(),
+##   number_est = col_double(),
+##   rate_est = col_double()
+## )</code></pre>
+<pre class="r"><code>dat1&lt;- read_csv(here::here(&quot;data&quot;, &quot;tidytuesday&quot;, &quot;data&quot;, &quot;2020&quot;, &quot;2020-03-24&quot;, &quot;tbi_year.csv&quot;
+))</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   injury_mechanism = col_character(),
+##   type = col_character(),
+##   year = col_double(),
+##   rate_est = col_double(),
+##   number_est = col_double()
+## )</code></pre>
+<pre class="r"><code>dat2&lt;- read_csv(here::here(&quot;data&quot;, &quot;tidytuesday&quot;, &quot;data&quot;, &quot;2020&quot;, &quot;2020-03-24&quot;, &quot;tbi_military.csv&quot;
+))</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   service = col_character(),
+##   component = col_character(),
+##   severity = col_character(),
+##   diagnosed = col_double(),
+##   year = col_double()
+## )</code></pre>
+<pre class="r"><code>glimpse(dat)</code></pre>
+<pre><code>## Observations: 231
+## Variables: 5
+## $ age_group        &lt;chr&gt; &quot;0-17&quot;, &quot;0-17&quot;, &quot;0-17&quot;, &quot;0-17&quot;, &quot;0-17&quot;, &quot;0-17&quot;, &quot;0-1…
+## $ type             &lt;chr&gt; &quot;Emergency Department Visit&quot;, &quot;Emergency Department …
+## $ injury_mechanism &lt;chr&gt; &quot;Motor Vehicle Crashes&quot;, &quot;Unintentional Falls&quot;, &quot;Uni…
+## $ number_est       &lt;dbl&gt; 47138, 397190, 229236, 55785, NA, 24360, 57983, 5464…
+## $ rate_est         &lt;dbl&gt; 64.1, 539.8, 311.6, 75.8, NA, 33.1, 78.8, 27.5, 1161…</code></pre>
+<p>What age group is most likely to receive a traumatic brain injury from which injury mechanism?
+To determine this relationship, I will examine a graph relating the age groups to the different injury mechanisms. As well, I want to observe this in a box plot, allowing easy observation over the median, minimum, and maximum ages these injury mechanisms occur.</p>
+<pre class="r"><code>library(ggplot2)
+ggplot(data =dat)+
+  geom_point(mapping = aes(x = age_group, y = number_est, color = injury_mechanism ))+
+  xlab(&quot;Injury Mechanism&quot;) +
+  ylab(&quot;Age Group&quot;) +
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))</code></pre>
+<pre><code>## Warning: Removed 11 rows containing missing values (geom_point).</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>  ggtitle(&quot;Most common injurt mechanisms per age group&quot;)</code></pre>
+<pre><code>## $title
+## [1] &quot;Most common injurt mechanisms per age group&quot;
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;labels&quot;</code></pre>
+<pre class="r"><code>glimpse(dat2)</code></pre>
+<pre><code>## Observations: 450
+## Variables: 5
+## $ service   &lt;chr&gt; &quot;Army&quot;, &quot;Army&quot;, &quot;Army&quot;, &quot;Army&quot;, &quot;Army&quot;, &quot;Army&quot;, &quot;Army&quot;, &quot;Ar…
+## $ component &lt;chr&gt; &quot;Active&quot;, &quot;Active&quot;, &quot;Active&quot;, &quot;Active&quot;, &quot;Active&quot;, &quot;Guard&quot;, …
+## $ severity  &lt;chr&gt; &quot;Penetrating&quot;, &quot;Severe&quot;, &quot;Moderate&quot;, &quot;Mild&quot;, &quot;Not Classifia…
+## $ diagnosed &lt;dbl&gt; 189, 102, 709, 5896, 122, 33, 26, 177, 1332, 29, 12, 11, 63…
+## $ year      &lt;dbl&gt; 2006, 2006, 2006, 2006, 2006, 2006, 2006, 2006, 2006, 2006,…</code></pre>
+<p>As the prevalence of TBI has increased in the military branches, has there been any decrease in the amount of concussions diagnosed throughout the years? If not, has severity at least lessened throughout the years?
+To determine, I will generate a graph to visualize the number of diagnosed and year of diagnoses, as well as a visualization of the severity of the TBI compared to the year of diagnoses</p>
+<pre class="r"><code>ggplot(data = dat2)+
+  geom_boxplot(mapping = aes(y = diagnosed, x = factor(year) , color = service))+
 
+   ylab(&quot;number of diagnoses&quot;) +
+    xlab(&quot;year&quot;) +
+    facet_wrap(~ severity, scale = &quot;free&quot;)+
+    theme(axis.text.x = element_text(angle =- 45, hjust = 0))</code></pre>
+<pre><code>## Warning: Removed 12 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code>    ggtitle(&quot;Number of diagnoses compared to its severity per year  &quot;)</code></pre>
+<pre><code>## $title
+## [1] &quot;Number of diagnoses compared to its severity per year  &quot;
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;labels&quot;</code></pre>
+<p>Of the brain injuries, there is not much to very little change in the data as years progress for the different levels of severity.</p>
+<pre class="r"><code>ggplot(data = dat2)+
+  geom_point(mapping = aes(y = diagnosed, x = year , color = service))</code></pre>
+<pre><code>## Warning: Removed 12 rows containing missing values (geom_point).</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
