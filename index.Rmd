@@ -11,11 +11,59 @@ categories: [introduction, R, data science]
 tags: [R, blogdown]
 ---
 
-my first post 
-
-i like the pengiuns
 
 ```{r}
 library(tidyverse)
 library(tinytex)
+```
+
+
+```{r}
+glimpse(dat)
+
+```
+What age group is most likely to receive a traumatic brain injury from which injury mechanism?
+To determine this relationship, I will examine a graph relating the age groups to the different injury mechanisms. As well, I want to observe this in a box plot, allowing easy observation over the median, minimum, and maximum ages these injury mechanisms occur. 
+
+```{r}
+library(ggplot2)
+ggplot(data =dat)+
+  geom_bar(mapping = aes(y = age_group, x = injury_mechanism ))+
+  xlab("Injury Mechanism") +
+  ylab("Age Group") +
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))
+  ggtitle("Most common injurt mechanisms per age group")
+```
+
+```{r}
+glimpse(dat2)
+```
+As the prevalence of TBI has increased in the military branches, has there been any decrease in the amount of concussions diagnosed throughout the years? If not, has severity at least lessened throughout the years?
+To determine, I will generate a graph to visualize the number of diagnosed and year of diagnoses, as well as a visualization of the severity of the TBI compared to the year of diagnoses
+
+
+```{r}
+ggplot(data = dat2)+
+  geom_point(mapping = aes(y = diagnosed, x = severity ))+
+   ylab("number of diagnoses") +
+    xlab("level of severity") +
+    theme(legend.position = "none")+
+    facet_wrap(~ year)+
+    theme(axis.text.x = element_text(angle =- 45, hjust = 0))
+    ggtitle("Number of diagnoses compared to its severity per year  ")
+
+
+
+    
+```
+
+```{r}
+
+ggplot(data = dat2)+
+  geom_point(mapping = aes(y = diagnosed, x = year ))
+
+
+
+
+
 ```
