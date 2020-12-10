@@ -73,7 +73,7 @@ The variable bionomial_name is factor of 3000 levels that represent the species 
 Which countries in North America currently have the most plants in danger by extinction?</p>
 <p>To Determine, filter within the data set, observe at a closer lense to the North American Countries</p>
 <pre class="r"><code>filter(dat4, continent %in% c(&quot;North America&quot;))%&gt;%
-  filter(year_last_seen == c(&quot;1980-1999&quot;,&quot;2000-2020&quot;))%&gt;%
+  filter(year_last_seen == c(&quot;2000-2020&quot;))%&gt;%
   filter(threat_type == &quot;Pollution&quot;)%&gt;%
   filter(red_list_category %in% c(&quot;Extinct&quot;, &quot;Extinct in the Wild&quot;))</code></pre>
 <pre><code>## # A tibble: 19 x 8
@@ -100,10 +100,44 @@ Which countries in North America currently have the most plants in danger by ext
 ## 19 Wikstroemia … United… North Am… Flow… 2000-2020      Extinct         
 ## # … with 2 more variables: threat_type &lt;chr&gt;, threatened &lt;dbl&gt;</code></pre>
 <p>Of the plants that became extinct in 2000-2020, the majority were last seen in America. 16 were from the United States, 2 from Mexico, and only 1 from Panama.Therefore, the United States has a greater pollution problem than the other two countries.</p>
-<p>Question 2: Is there trend in the threat type that came help determine the action type that needs to be enforced?
+<p>Question 2: How much action is being enforced for the plants going extinct in the North American countries?
 To determine, filter the data to match what the threat was and whether or not action was taken to deter that threat.</p>
-<p>Question 3: Was there an event in recent history that wiped out, or put multiple plant species in danger?
-To determine, I will create a graphic graphing the year the plants were last seen as well as the threat the plants are/were in.</p>
+<pre class="r"><code>action_in_NA&lt;- filter(dat5, action_taken == &quot;1&quot;)%&gt;%
+  filter(country %in% c(&quot;North America&quot;, &quot;Mexico&quot;, &quot;Canada&quot;))%&gt;%
+  filter(year_last_seen == &quot;2000-2020&quot;)
+action_in_NA</code></pre>
+<pre><code>## # A tibble: 2 x 8
+##   binomial_name country continent group year_last_seen red_list_catego…
+##   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;           
+## 1 Agave lurida  Mexico  North Am… Flow… 2000-2020      Extinct in the …
+## 2 Gossypium ar… Mexico  North Am… Flow… 2000-2020      Extinct in the …
+## # … with 2 more variables: action_type &lt;chr&gt;, action_taken &lt;dbl&gt;</code></pre>
+<pre class="r"><code>Extinct_in_NA &lt;- filter(dat4, continent %in% c(&quot;North America&quot;))%&gt;%
+  filter(year_last_seen == c(&quot;2000-2020&quot;))%&gt;%
+  filter(red_list_category %in% c(&quot;Extinct&quot;, &quot;Extinct in the Wild&quot;))%&gt;%
+  group_by(binomial_name)
+  
+
+
+Extinct_in_NA</code></pre>
+<pre><code>## # A tibble: 228 x 8
+## # Groups:   binomial_name [19]
+##    binomial_name country continent group year_last_seen red_list_catego…
+##    &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;           
+##  1 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
+##  2 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
+##  3 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
+##  4 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
+##  5 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
+##  6 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
+##  7 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
+##  8 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
+##  9 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
+## 10 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
+## # … with 218 more rows, and 2 more variables: threat_type &lt;chr&gt;,
+## #   threatened &lt;dbl&gt;</code></pre>
+<p>There was only 2 plants, Agave Iurida and Gossypium armourianum that saw action being taken out of a list of 228 plants in danger.
+Both plants saw action saw action from Mexico, which means none of the other countries tried to administer any action to control the extent of the danger that the plants are in.</p>
 <pre class="r"><code>glimpse(dat5)</code></pre>
 <pre><code>## Observations: 3,000
 ## Variables: 8
@@ -115,3 +149,5 @@ To determine, I will create a graphic graphing the year the plants were last see
 ## $ red_list_category &lt;chr&gt; &quot;Extinct in the Wild&quot;, &quot;Extinct in the Wild&quot;, &quot;Exti…
 ## $ action_type       &lt;chr&gt; &quot;Land &amp; Water Protection&quot;, &quot;Species Management&quot;, &quot;L…
 ## $ action_taken      &lt;dbl&gt; 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, …</code></pre>
+<p>Question 3: Was there an event in recent history that wiped out, or put multiple plant species in danger?
+To determine, I will create a graphic graphing the year the plants were last seen as well as the threat the plants are/were in.</p>

@@ -43,15 +43,15 @@ glimpse(dat3)
 ```
 ```{r}
 glimpse(dat4)
-
 ```
+
 Question 1:
  Which countries in North America currently have the most plants in danger by extinction?
  
 To Determine, filter within the data set, observe at a closer lense to the North American Countries
 ```{r}
 filter(dat4, continent %in% c("North America"))%>%
-  filter(year_last_seen == c("1980-1999","2000-2020"))%>%
+  filter(year_last_seen == c("2000-2020"))%>%
   filter(threat_type == "Pollution")%>%
   filter(red_list_category %in% c("Extinct", "Extinct in the Wild"))
 ```
@@ -59,15 +59,34 @@ Of the plants that became extinct in 2000-2020, the majority were last seen in A
 
 
 
-Question 2: Is there trend in the threat type that came help determine the action type that needs to be enforced?
+Question 2: How much action is being enforced for the plants going extinct in the North American countries?
 To determine, filter the data to match what the threat was and whether or not action was taken to deter that threat. 
 ```{r}
+action_in_NA<- filter(dat5, action_taken == "1")%>%
+  filter(country %in% c("North America", "Mexico", "Canada"))%>%
+  filter(year_last_seen == "2000-2020")
+action_in_NA
 
+Extinct_in_NA <- filter(dat4, continent %in% c("North America"))%>%
+  filter(year_last_seen == c("2000-2020"))%>%
+  filter(red_list_category %in% c("Extinct", "Extinct in the Wild"))%>%
+  group_by(binomial_name)
+  
+
+
+Extinct_in_NA
+```
+There was only 2 plants, Agave Iurida and Gossypium armourianum that saw action being taken out of a list of 228 plants in danger.
+Both plants saw action saw action from Mexico, which means none of the other countries tried to administer any action to control the extent of the danger that the plants are in.
+
+```{r}
+glimpse(dat5)
 ```
 
 Question 3: Was there an event in recent history that wiped out, or put multiple plant species in danger? 
 To determine, I will create a graphic graphing the year the plants were last seen as well as the threat the plants are/were in. 
 ```{r}
-glimpse(dat5)
+
+
 
 ```
