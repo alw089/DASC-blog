@@ -20,7 +20,12 @@ dat2<- read_csv(here::here("data", "tidytuesday", "data", "2020", "2020-03-24", 
 ))
 
 ```
+Traumatic Brain Injuries 
+For this project, I am examining the traumatic brain injury (TBI) within the data set tbi_age.csv file from the Tidy Tuesday website. The data set has 216 observations of 5 variables. The variable age_group is a factor of 231 levels that represents the age groups of victims of TBI. The variable type is a factor of 231 levels that represents the where the victim went to treat their injury, or the effect of the injury. The variable injury_mechanism is a factor of 231 levels that represents how the victim obtained their injury. The variable number_set is a factor of 231 levels that represents the estimated observed cases in 2014.The variable rate_est is a factor of 231 levels that represents the where the victim went to treat their injury.
 
+With the second, tbi_year.csv data set from Tidy Tuesday website further examines these injuries. The data set has 216 observations of 5 variables. The variable injury_mechanism is a factor of 216 levels that represents how the injury was received. The variable type is a factor of 216 levels that represents went to treat their injury, or the effect of the injury. The variable year is a factor of 216 levels that represents the year of the injury. The variable rate_est is a factor of 216 levels that rate/100,000 in 2014. The variable number_est is a factor of 216 levels that represents estimated observed cases in each year.
+
+The last data set, tbi_military.csv from Tidy Tuesday specifically delves into brain injuries specifically from military personnel. The data set has 450 observations and 5 variables. The variable service is a factor of 450 levels that represents the military branch of the victim's branch. The variable component is a factor of 450 levels that represents whether the victim is active, guard, or reserve). The variable type is a severity of 450 levels that represents the severity of the injury. The variable diagnosed is a factor of 450 levels that represents the number of diagnoses per year. The variable year is a factor of 450 levels that represents year the injury was observed.
 
 ```{r}
 glimpse(dat)
@@ -38,6 +43,7 @@ ggplot(data =dat)+
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))
   ggtitle("Most common injurt mechanisms per age group")
 ```
+Unintentional falls is one of the most substantial injury mechanisms in the data, with it being the greatest reason for almost all the age groups, and being the greatest out of the total group by a large margin. Next most prominent injury mechanism is being unintentionally struck by or against an object, being the second largest for the most of the age groups as well. From this, it appears that there is no correlation between the different types of injury mechanism and the different age groups.
 
 ```{r}
 glimpse(dat2)
@@ -57,7 +63,8 @@ ggplot(data = dat2)+
     ggtitle("Number of diagnoses compared to its severity per year  ")
 
 ```
-Of the brain injuries, there is not much to very little change in the data as years progress for the different levels of severity. 
+Of the brain injuries, there is not much to very little change in the data as years progress for the different levels of severity. The graph above makes it apparent that the Army Branch has the widest range of all types of severity throughout all the years. However, the mild and moderate concussions are much more substantial than the not classifiable, penetrating, severe types of concussions. All the other branches remain relatively constant maintaining few TBIs and maintaining approximately the same amount each year.  
+
 ```{r}
 
 ggplot(data = dat2)+
@@ -72,15 +79,15 @@ glimpse(dat2)
 
 ```{r}
 dat2%>%
-  group_by(severity)%>%
-  filter(severity == c("Death") )%>%
-  ggplot(data = dat2)+
-  geom_point(mapping = aes(y = diagnosed, x = severity , color = service))+
-  xlab("State")+
-  ylab("fatality rate")+
-  ggtitle("COVID Fatality Rate in states: Arkansas, Oklahoma, Louisiana, New York")+
-  theme(plot.title = element_text(hjust =0.5), legend.position = "None")
+  filter(severity == c("Death") )
         
 ```
 
+
+
+
+
+
+
+Conclusion:
 
