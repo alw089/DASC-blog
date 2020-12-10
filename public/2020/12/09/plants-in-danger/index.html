@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.79.0" />
+
+
+<title>Plants in Danger - Abby Willard Blog</title>
+<meta property="og:title" content="Plants in Danger - Abby Willard Blog">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/IMG_8463.jpg"
+         width="50"
+         height="40"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/alw089">GitHub</a></li>
+    
+    <li><a href="https://www.linkedin.com/in/abby-willard-9bb7851ba/">Linkedin</a></li>
+    
+    <li><a href="/resume.pdf">Resume</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">6 min read</span>
+    
+
+    <h1 class="article-title">Plants in Danger</h1>
+
+    
+    <span class="article-date">2020-12-09</span>
+    
+
+    <div class="article-content">
+      
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<pre class="r"><code>library(tidyverse)
+library(tinytex)
+library(here)
+library(sf)
+library(ggplot2)
+library(tmap)
+library(tmaptools)
+library(leaflet)
+library(dplyr)</code></pre>
+<pre class="r"><code>dat3&lt;- read_csv(here::here(&quot;data&quot;, &quot;tidytuesday&quot;, &quot;data&quot;, &quot;2020&quot;, &quot;2020-08-18&quot;, &quot;plants.csv&quot;
+))
+dat4&lt;- read_csv(here::here(&quot;data&quot;, &quot;tidytuesday&quot;, &quot;data&quot;, &quot;2020&quot;, &quot;2020-08-18&quot;, &quot;threats.csv&quot;
+))
+dat5&lt;- read_csv(here::here(&quot;data&quot;, &quot;tidytuesday&quot;, &quot;data&quot;, &quot;2020&quot;, &quot;2020-08-18&quot;, &quot;actions.csv&quot;
+))</code></pre>
+<p>Plants in Danger
+For this project, I am examining plants in danger within the data set plants.csv file from the Tidy Tuesday website. The data set has 500 observations of 24 variables. The variable bionomial_name is a factor of 500 levels that represents the species name (Genus + species). The variable country is a factor of 500 levels that represents the country the plant is origin to. The variable continent is a factor of 500 levels that represents the continent the plant originated. The variable group is a factor of 500 levels that represents the taxonomic group of the plant.The variable year_last_seen is a factor of 500 levels that represents the last year the plant was last seen. The next 12 variables all have 500 levels and describe the different threats of the plants (AA - agriculture &amp; aquaculture, BRU- biological resource use, RDC-commercial development, ISGD -invasive species, EPM - energy production and mining, CC- climate change, HID -human intrusions, P- pollution, TS- transportation corridor, NSM- natural systems modifications, GE- geological events, NA- unknown).</p>
+<p>The next data set, threats.csv, has 6,000 observations and 5 variables. The variable bionomial_name is factor of 6000 levels that represent the species name (Genus + species). The variable country is factor of 6000 levels that represent the species original location.The variable continent is factor of 6000 levels that represent the species originating continent. The variable group is factor of 6000 levels that represent the taxonomic group the plant belongs to. The variable year_last_seen is factor of 6000 levels the last calendar year the plant was seen.The variable red_list_category is factor of 6000 levels that represent the IUCN Red List category. The variable threat_type is factor of 6000 levels that represent the type of threat the plants are in, from the last data set. The variable threatened is factor of 6000 levels that represent a binary of 0 (action not taken) or 1 (aciton taken).</p>
+<p>The last data set, actions.csv has 3000 observations and 8 variables.
+The variable bionomial_name is factor of 3000 levels that represent the species name (Genus + species). The variable country is factor of 3000 levels that represent the species original location.The variable continent is factor of 3000 levels that represent the species originating continent. The variable group is factor of 3000 levels that represent the taxonomic group the plant belongs to. The variable year_last_seen is factor of 3000 levels the last calendar year the plant was seen.The variable red_list_category is factor of 3000 levels that represent the IUCN Red List category. The variable action_type is factor of 3000 levels that represent the type of action the plant has had.The variable action_taken is factor of 3000 levels that represent a binary of 0 (action not taken) or 1 (action taken).</p>
+<pre class="r"><code>glimpse(dat3)</code></pre>
+<pre><code>## Observations: 500
+## Variables: 24
+## $ binomial_name     &lt;chr&gt; &quot;Abutilon pitcairnense&quot;, &quot;Acaena exigua&quot;, &quot;Acalypha…
+## $ country           &lt;chr&gt; &quot;Pitcairn&quot;, &quot;United States&quot;, &quot;Congo&quot;, &quot;Saint Helena…
+## $ continent         &lt;chr&gt; &quot;Oceania&quot;, &quot;North America&quot;, &quot;Africa&quot;, &quot;Africa&quot;, &quot;Oc…
+## $ group             &lt;chr&gt; &quot;Flowering Plant&quot;, &quot;Flowering Plant&quot;, &quot;Flowering Pl…
+## $ year_last_seen    &lt;chr&gt; &quot;2000-2020&quot;, &quot;1980-1999&quot;, &quot;1940-1959&quot;, &quot;Before 1900…
+## $ threat_AA         &lt;dbl&gt; 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, …
+## $ threat_BRU        &lt;dbl&gt; 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, …
+## $ threat_RCD        &lt;dbl&gt; 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, …
+## $ threat_ISGD       &lt;dbl&gt; 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ threat_EPM        &lt;dbl&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ threat_CC         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ threat_HID        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ threat_P          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ threat_TS         &lt;dbl&gt; 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, …
+## $ threat_NSM        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ threat_GE         &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ threat_NA         &lt;dbl&gt; 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, …
+## $ action_LWP        &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, …
+## $ action_SM         &lt;dbl&gt; 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ action_LP         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ action_RM         &lt;dbl&gt; 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ action_EA         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ action_NA         &lt;dbl&gt; 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, …
+## $ red_list_category &lt;chr&gt; &quot;Extinct in the Wild&quot;, &quot;Extinct&quot;, &quot;Extinct&quot;, &quot;Extin…</code></pre>
+<pre class="r"><code>glimpse(dat4)</code></pre>
+<pre><code>## Observations: 6,000
+## Variables: 8
+## $ binomial_name     &lt;chr&gt; &quot;Abutilon pitcairnense&quot;, &quot;Abutilon pitcairnense&quot;, &quot;…
+## $ country           &lt;chr&gt; &quot;Pitcairn&quot;, &quot;Pitcairn&quot;, &quot;Pitcairn&quot;, &quot;Pitcairn&quot;, &quot;Pi…
+## $ continent         &lt;chr&gt; &quot;Oceania&quot;, &quot;Oceania&quot;, &quot;Oceania&quot;, &quot;Oceania&quot;, &quot;Oceani…
+## $ group             &lt;chr&gt; &quot;Flowering Plant&quot;, &quot;Flowering Plant&quot;, &quot;Flowering Pl…
+## $ year_last_seen    &lt;chr&gt; &quot;2000-2020&quot;, &quot;2000-2020&quot;, &quot;2000-2020&quot;, &quot;2000-2020&quot;,…
+## $ red_list_category &lt;chr&gt; &quot;Extinct in the Wild&quot;, &quot;Extinct in the Wild&quot;, &quot;Exti…
+## $ threat_type       &lt;chr&gt; &quot;Agriculture &amp; Aquaculture&quot;, &quot;Biological Resource U…
+## $ threatened        &lt;dbl&gt; 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, …</code></pre>
+<p>Question 1:
+Do countries with significant amounts of plants in danger occupy a lot of the action to maintain the longevity of the plant health?
+Determine the relationship between country and the different plants as well as the relationship between country and the action type, with graphics describing such relationships.</p>
+<pre class="r"><code>current_year &lt;- filter(dat4, year_last_seen %in% c(&quot;2000-2020&quot;,&quot;1980-1999&quot;))
+pollution&lt;- filter(dat4, threat_type %in% c(&quot;Pollution&quot;))
+
+
+# filter(dat4, country %in% c(&quot;United States&quot;, &quot;Mexico&quot;, &quot;Canada&quot;))%&gt;%
+#     current_year &lt;- filter(dat4, year_last_seen %in% c(&quot;1980-1999&quot;,&quot;2000-2020&quot;))%&gt;%
+#     pollution&lt;- filter(dat4, threat_type %in% c(&quot;Pollution&quot;))%&gt;%
+#   #filter(dat4, threat_type %in% c(&quot;Pollution&quot;))%&gt;%
+#     ggplot(aes(x = current_year, y = pollution, color = country))+
+#     geom_line(mapping = aes(x = current_year, y= pollution, color = country))+
+#     facet_wrap(~country)
+#     theme(axis.text.x = element_text(angle =- 45, hjust = 0))</code></pre>
+<p>Question 2: Is there trend in the threat type that came help determine the action type that needs to be enforced?
+To determine, filter the data to match what the threat was and whether or not action was taken to deter that threat.</p>
+<p>Question 3: Was there an event in recent history that wiped out, or put multiple plant species in danger?
+To determine, I will create a graphic graphing the year the plants were last seen as well as the threat the plants are/were in.</p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+
