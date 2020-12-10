@@ -70,24 +70,45 @@ Of the brain injuries, there is not much to very little change in the data as ye
 ggplot(data = dat2)+
   geom_point(mapping = aes(y = diagnosed, x = year , color = service))
 ```
+This is another graph depicting the amount diagnosed per year throughout the military. Again, the Army has way more cases each year than any other branch in the military.
 
-Question 3: Throughout the different data sets, are deaths from TBI age based or severity based? 
-To determine, I will create 2 graphics for each data set, one comparing the ages of the victims to the deaths in that data set, as well as a graphic between the type or severity of the TBI to the deaths.
+
+
+Question 3: Throughout the different data sets, are deaths from TBI severity based? 
+To determine, I will create a graphic between the type or severity of the TBI to the deaths for the two data sets that have such data available.
 ```{r}
-glimpse(dat2)
+glimpse(dat1)
 ```
 
 ```{r}
-dat2%>%
-  filter(severity == c("Death") )
+graph1<-filter(dat1, type %in% c("Deaths" ))%>%
+  ggplot(aes(y = number_est,x= type, color = injury_mechanism))+
+  geom_point(mapping = aes(y= number_est, x= type, color = injury_mechanism))+
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))
+graph1
+
         
 ```
 
+```{r}
+graph2<-filter(dat, type %in% c("Deaths" ))%>%
+  ggplot(aes(y = number_est,x= type, color = injury_mechanism))+
+  geom_point(mapping = aes(y= number_est, x= type, color = injury_mechanism))+
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))
+graph2
 
 
+#graph examining deaths per age group
+# graph3<-filter(dat, type %in% c("Deaths" ))%>%
+#   ggplot(aes(x= age_group,y= type, color = injury_mechanism))+
+#   geom_point(mapping = aes(z= age_group, y= type, color = injury_mechanism))+
+#   theme(axis.text.x = element_text(angle =- 45, hjust = 0))
+# graph3
+```
+The graphs both depict that "Intentional self harm causes the most deaths for TBI injuries. Of the unintentional mechanisms, unintentional falls and motor vehicle crashes are the most deathly injury mechanism. For the most part, the other injury mechanisms maintain the same amount of deaths, so it is very clear from the data that the most deadly 
 
-
-
-
+```{r}
+glimpse(dat)
+```
 Conclusion:
 

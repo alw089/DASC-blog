@@ -77,20 +77,45 @@ To determine, I will generate a graph to visualize the number of diagnosed and y
 <pre class="r"><code>ggplot(data = dat2)+
   geom_point(mapping = aes(y = diagnosed, x = year , color = service))</code></pre>
 <pre><code>## Warning: Removed 12 rows containing missing values (geom_point).</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<p>Question 3: Throughout the different data sets, are deaths from TBI age based or severity based?
-To determine, I will create 2 graphics for each data set, one comparing the ages of the victims to the deaths in that data set, as well as a graphic between the type or severity of the TBI to the deaths.</p>
-<pre class="r"><code>glimpse(dat2)</code></pre>
-<pre><code>## Observations: 450
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+This is another graph depicting the amount diagnosed per year throughout the military. Again, the Army has way more cases each year than any other branch in the military.</p>
+<p>Question 3: Throughout the different data sets, are deaths from TBI severity based?
+To determine, I will create a graphic between the type or severity of the TBI to the deaths for the two data sets that have such data available.</p>
+<pre class="r"><code>glimpse(dat1)</code></pre>
+<pre><code>## Observations: 216
 ## Variables: 5
-## $ service   &lt;chr&gt; &quot;Army&quot;, &quot;Army&quot;, &quot;Army&quot;, &quot;Army&quot;, &quot;Army&quot;, &quot;Army&quot;, &quot;Army&quot;, &quot;Ar…
-## $ component &lt;chr&gt; &quot;Active&quot;, &quot;Active&quot;, &quot;Active&quot;, &quot;Active&quot;, &quot;Active&quot;, &quot;Guard&quot;, …
-## $ severity  &lt;chr&gt; &quot;Penetrating&quot;, &quot;Severe&quot;, &quot;Moderate&quot;, &quot;Mild&quot;, &quot;Not Classifia…
-## $ diagnosed &lt;dbl&gt; 189, 102, 709, 5896, 122, 33, 26, 177, 1332, 29, 12, 11, 63…
-## $ year      &lt;dbl&gt; 2006, 2006, 2006, 2006, 2006, 2006, 2006, 2006, 2006, 2006,…</code></pre>
-<pre class="r"><code>dat2%&gt;%
-  filter(severity == c(&quot;Death&quot;) )</code></pre>
-<pre><code>## # A tibble: 0 x 5
-## # … with 5 variables: service &lt;chr&gt;, component &lt;chr&gt;, severity &lt;chr&gt;,
-## #   diagnosed &lt;dbl&gt;, year &lt;dbl&gt;</code></pre>
+## $ injury_mechanism &lt;chr&gt; &quot;Motor vehicle crashes&quot;, &quot;Motor vehicle crashes&quot;, &quot;M…
+## $ type             &lt;chr&gt; &quot;Emergency Department Visit&quot;, &quot;Emergency Department …
+## $ year             &lt;dbl&gt; 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014…
+## $ rate_est         &lt;dbl&gt; 85.3, 83.8, 83.9, 88.7, 95.3, 98.7, 99.9, 99.6, 106.…
+## $ number_est       &lt;dbl&gt; 254793, 252459, 254391, 270240, 292942, 305694, 3112…</code></pre>
+<pre class="r"><code>graph1&lt;-filter(dat1, type %in% c(&quot;Deaths&quot; ))%&gt;%
+  ggplot(aes(y = number_est,x= type, color = injury_mechanism))+
+  geom_point(mapping = aes(y= number_est, x= type, color = injury_mechanism))+
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))
+graph1</code></pre>
+<pre><code>## Warning: Removed 9 rows containing missing values (geom_point).</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<pre class="r"><code>graph2&lt;-filter(dat, type %in% c(&quot;Deaths&quot; ))%&gt;%
+  ggplot(aes(y = number_est,x= type, color = injury_mechanism))+
+  geom_point(mapping = aes(y= number_est, x= type, color = injury_mechanism))+
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))
+graph2</code></pre>
+<pre><code>## Warning: Removed 3 rows containing missing values (geom_point).</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="r"><code>#graph examining deaths per age group
+# graph3&lt;-filter(dat, type %in% c(&quot;Deaths&quot; ))%&gt;%
+#   ggplot(aes(x= age_group,y= type, color = injury_mechanism))+
+#   geom_point(mapping = aes(z= age_group, y= type, color = injury_mechanism))+
+#   theme(axis.text.x = element_text(angle =- 45, hjust = 0))
+# graph3</code></pre>
+<p>The graphs both depict that "Intentional self harm causes the most deaths for TBI injuries. Of the unintentional mechanisms, unintentional falls and motor vehicle crashes are the most deathly injury mechanism. For the most part, the other injury mechanisms maintain the same amount of deaths, so it is very clear from the data that the most deadly</p>
+<pre class="r"><code>glimpse(dat)</code></pre>
+<pre><code>## Observations: 231
+## Variables: 5
+## $ age_group        &lt;chr&gt; &quot;0-17&quot;, &quot;0-17&quot;, &quot;0-17&quot;, &quot;0-17&quot;, &quot;0-17&quot;, &quot;0-17&quot;, &quot;0-1…
+## $ type             &lt;chr&gt; &quot;Emergency Department Visit&quot;, &quot;Emergency Department …
+## $ injury_mechanism &lt;chr&gt; &quot;Motor Vehicle Crashes&quot;, &quot;Unintentional Falls&quot;, &quot;Uni…
+## $ number_est       &lt;dbl&gt; 47138, 397190, 229236, 55785, NA, 24360, 57983, 5464…
+## $ rate_est         &lt;dbl&gt; 64.1, 539.8, 311.6, 75.8, NA, 33.1, 78.8, 27.5, 1161…</code></pre>
 <p>Conclusion:</p>
