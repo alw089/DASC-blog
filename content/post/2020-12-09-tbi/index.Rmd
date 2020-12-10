@@ -11,7 +11,7 @@ library(tidyverse)
 library(tinytex)
 ```
 
-```{r}
+```{r, message = FALSE}
 dat<- read_csv(here::here("data", "tidytuesday", "data", "2020", "2020-03-24", "tbi_age.csv"
 ))
 dat1<- read_csv(here::here("data", "tidytuesday", "data", "2020", "2020-03-24", "tbi_year.csv"
@@ -33,8 +33,8 @@ To determine this relationship, I will examine a graph relating the age groups t
 library(ggplot2)
 ggplot(data =dat)+
   geom_point(mapping = aes(x = age_group, y = number_est, color = injury_mechanism ))+
-  xlab("Injury Mechanism") +
-  ylab("Age Group") +
+  xlab("Age Group") +
+  ylab("Number of Injuries") +
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))
   ggtitle("Most common injurt mechanisms per age group")
 ```
@@ -42,7 +42,7 @@ ggplot(data =dat)+
 ```{r}
 glimpse(dat2)
 ```
-As the prevalence of TBI has increased in the military branches, has there been any decrease in the amount of concussions diagnosed throughout the years? If not, has severity at least lessened throughout the years?
+Question 2: As the prevalence of TBI has increased in the military branches, has there been any decrease in the amount of concussions diagnosed throughout the years? If not, has severity at least lessened throughout the years?
 To determine, I will generate a graph to visualize the number of diagnosed and year of diagnoses, as well as a visualization of the severity of the TBI compared to the year of diagnoses
 
 
@@ -56,18 +56,31 @@ ggplot(data = dat2)+
     theme(axis.text.x = element_text(angle =- 45, hjust = 0))
     ggtitle("Number of diagnoses compared to its severity per year  ")
 
-
-
-    
 ```
 Of the brain injuries, there is not much to very little change in the data as years progress for the different levels of severity. 
 ```{r}
 
 ggplot(data = dat2)+
   geom_point(mapping = aes(y = diagnosed, x = year , color = service))
-
-
-
-
-
 ```
+
+Question 3: Throughout the different data sets, are deaths from TBI age based or severity based? 
+To determine, I will create 2 graphics for each data set, one comparing the ages of the victims to the deaths in that data set, as well as a graphic between the type or severity of the TBI to the deaths.
+```{r}
+glimpse(dat2)
+```
+
+```{r}
+dat2%>%
+  group_by(severity)%>%
+  filter(severity == c("Death") )%>%
+  ggplot(data = dat2)+
+  geom_point(mapping = aes(y = diagnosed, x = severity , color = service))+
+  xlab("State")+
+  ylab("fatality rate")+
+  ggtitle("COVID Fatality Rate in states: Arkansas, Oklahoma, Louisiana, New York")+
+  theme(plot.title = element_text(hjust =0.5), legend.position = "None")
+        
+```
+
+
