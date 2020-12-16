@@ -19,8 +19,9 @@ dat1&lt;- read_csv(here::here(&quot;data&quot;, &quot;tidytuesday&quot;, &quot;d
 ))
 dat2&lt;- read_csv(here::here(&quot;data&quot;, &quot;tidytuesday&quot;, &quot;data&quot;, &quot;2020&quot;, &quot;2020-03-24&quot;, &quot;tbi_military.csv&quot;
 ))</code></pre>
-<p>Traumatic Brain Injuries
-For this project, I am examining the traumatic brain injury (TBI) within the data set tbi_age.csv file from the Tidy Tuesday website. The data set has 216 observations of 5 variables. The variable age_group is a factor of 231 levels that represents the age groups of victims of TBI. The variable type is a factor of 231 levels that represents the where the victim went to treat their injury, or the effect of the injury. The variable injury_mechanism is a factor of 231 levels that represents how the victim obtained their injury. The variable number_set is a factor of 231 levels that represents the estimated observed cases in 2014.The variable rate_est is a factor of 231 levels that represents the where the victim went to treat their injury.</p>
+<div id="traumatic-brain-injury" class="section level2">
+<h2>Traumatic Brain Injury</h2>
+<p>For this project, I am examining the traumatic brain injury (TBI) within the data set tbi_age.csv file from the Tidy Tuesday website. The data set has 216 observations of 5 variables. The variable age_group is a factor of 231 levels that represents the age groups of victims of TBI. The variable type is a factor of 231 levels that represents the where the victim went to treat their injury, or the effect of the injury. The variable injury_mechanism is a factor of 231 levels that represents how the victim obtained their injury. The variable number_set is a factor of 231 levels that represents the estimated observed cases in 2014.The variable rate_est is a factor of 231 levels that represents the where the victim went to treat their injury.</p>
 <p>With the second, tbi_year.csv data set from Tidy Tuesday website further examines these injuries. The data set has 216 observations of 5 variables. The variable injury_mechanism is a factor of 216 levels that represents how the injury was received. The variable type is a factor of 216 levels that represents went to treat their injury, or the effect of the injury. The variable year is a factor of 216 levels that represents the year of the injury. The variable rate_est is a factor of 216 levels that rate/100,000 in 2014. The variable number_est is a factor of 216 levels that represents estimated observed cases in each year.</p>
 <p>The last data set, tbi_military.csv from Tidy Tuesday specifically delves into brain injuries specifically from military personnel. The data set has 450 observations and 5 variables. The variable service is a factor of 450 levels that represents the military branch of the victim’s branch. The variable component is a factor of 450 levels that represents whether the victim is active, guard, or reserve). The variable type is a severity of 450 levels that represents the severity of the injury. The variable diagnosed is a factor of 450 levels that represents the number of diagnoses per year. The variable year is a factor of 450 levels that represents year the injury was observed.</p>
 <pre class="r"><code>glimpse(dat)</code></pre>
@@ -31,6 +32,9 @@ For this project, I am examining the traumatic brain injury (TBI) within the dat
 ## $ injury_mechanism &lt;chr&gt; &quot;Motor Vehicle Crashes&quot;, &quot;Unintentional Falls&quot;, &quot;Uni…
 ## $ number_est       &lt;dbl&gt; 47138, 397190, 229236, 55785, NA, 24360, 57983, 5464…
 ## $ rate_est         &lt;dbl&gt; 64.1, 539.8, 311.6, 75.8, NA, 33.1, 78.8, 27.5, 1161…</code></pre>
+</div>
+<div id="question-1" class="section level1">
+<h1>Question 1</h1>
 <p>What age group is most likely to receive a traumatic brain injury from which injury mechanism?
 To determine this relationship, I will examine a graph relating the age groups to the different injury mechanisms. As well, I want to observe this in a box plot, allowing easy observation over the median, minimum, and maximum ages these injury mechanisms occur.</p>
 <pre class="r"><code>library(ggplot2)
@@ -56,7 +60,10 @@ ggplot(data =dat)+
 ## $ severity  &lt;chr&gt; &quot;Penetrating&quot;, &quot;Severe&quot;, &quot;Moderate&quot;, &quot;Mild&quot;, &quot;Not Classifia…
 ## $ diagnosed &lt;dbl&gt; 189, 102, 709, 5896, 122, 33, 26, 177, 1332, 29, 12, 11, 63…
 ## $ year      &lt;dbl&gt; 2006, 2006, 2006, 2006, 2006, 2006, 2006, 2006, 2006, 2006,…</code></pre>
-<p>Question 2: As the prevalence of TBI has increased in the military branches, has there been any decrease in the amount of concussions diagnosed throughout the years? If not, has severity at least lessened throughout the years?
+</div>
+<div id="question-2" class="section level1">
+<h1>Question 2</h1>
+<p>As the prevalence of TBI has increased in the military branches, has there been any decrease in the amount of concussions diagnosed throughout the years? If not, has severity at least lessened throughout the years?
 To determine, I will generate a graph to visualize the number of diagnosed and year of diagnoses, as well as a visualization of the severity of the TBI compared to the year of diagnoses</p>
 <pre class="r"><code>ggplot(data = dat2)+
   geom_boxplot(mapping = aes(y = diagnosed, x = factor(year) , color = service))+
@@ -79,7 +86,8 @@ To determine, I will generate a graph to visualize the number of diagnosed and y
 <pre><code>## Warning: Removed 12 rows containing missing values (geom_point).</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 This is another graph depicting the amount diagnosed per year throughout the military. Again, the Army has way more cases each year than any other branch in the military.</p>
-<p>Question 3: Throughout the different data sets, are deaths from TBI severity based?
+<p>#Question 3
+Throughout the different data sets, are deaths from TBI severity based?
 To determine, I will create a graphic between the type or severity of the TBI to the deaths for the two data sets that have such data available.</p>
 <pre class="r"><code>glimpse(dat1)</code></pre>
 <pre><code>## Observations: 216
@@ -119,3 +127,4 @@ graph2</code></pre>
 ## $ number_est       &lt;dbl&gt; 47138, 397190, 229236, 55785, NA, 24360, 57983, 5464…
 ## $ rate_est         &lt;dbl&gt; 64.1, 539.8, 311.6, 75.8, NA, 33.1, 78.8, 27.5, 1161…</code></pre>
 <p>Conclusion:</p>
+</div>
