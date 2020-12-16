@@ -42,16 +42,11 @@ ggplot(data =dat)+
   geom_point(mapping = aes(x = age_group, y = number_est, color = injury_mechanism ))+
   xlab(&quot;Age Group&quot;) +
   ylab(&quot;Number of Injuries&quot;) +
-  theme(axis.text.x = element_text(angle =- 45, hjust = 0))</code></pre>
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
+  ggtitle(&quot;Most common injurt mechanisms per age group&quot;)</code></pre>
 <pre><code>## Warning: Removed 11 rows containing missing values (geom_point).</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<pre class="r"><code>  ggtitle(&quot;Most common injurt mechanisms per age group&quot;)</code></pre>
-<pre><code>## $title
-## [1] &quot;Most common injurt mechanisms per age group&quot;
-## 
-## attr(,&quot;class&quot;)
-## [1] &quot;labels&quot;</code></pre>
-<p>Unintentional falls is one of the most substantial injury mechanisms in the data, with it being the greatest reason for almost all the age groups, and being the greatest out of the total group by a large margin. Next most prominent injury mechanism is being unintentionally struck by or against an object, being the second largest for the most of the age groups as well. From this, it appears that there is no correlation between the different types of injury mechanism and the different age groups.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+Unintentional falls is one of the most substantial injury mechanisms in the data, with it being the greatest reason for almost all the age groups, and being the greatest out of the total group by a large margin. Next most prominent injury mechanism is being unintentionally struck by or against an object, being the second largest for the most of the age groups as well. From this, it appears that there is no correlation between the different types of injury mechanism and the different age groups.</p>
 <pre class="r"><code>glimpse(dat2)</code></pre>
 <pre><code>## Observations: 450
 ## Variables: 5
@@ -71,16 +66,11 @@ To determine, I will generate a graph to visualize the number of diagnosed and y
    ylab(&quot;number of diagnoses&quot;) +
     xlab(&quot;year&quot;) +
     facet_wrap(~ severity, scale = &quot;free&quot;)+
-    theme(axis.text.x = element_text(angle =- 45, hjust = 0))</code></pre>
+    theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
+    ggtitle(&quot;Number of diagnoses compared to its severity per year  &quot;)</code></pre>
 <pre><code>## Warning: Removed 12 rows containing non-finite values (stat_boxplot).</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<pre class="r"><code>    ggtitle(&quot;Number of diagnoses compared to its severity per year  &quot;)</code></pre>
-<pre><code>## $title
-## [1] &quot;Number of diagnoses compared to its severity per year  &quot;
-## 
-## attr(,&quot;class&quot;)
-## [1] &quot;labels&quot;</code></pre>
-<p>Of the brain injuries, there is not much to very little change in the data as years progress for the different levels of severity. The graph above makes it apparent that the Army Branch has the widest range of all types of severity throughout all the years. However, the mild and moderate concussions are much more substantial than the not classifiable, penetrating, severe types of concussions. All the other branches remain relatively constant maintaining few TBIs and maintaining approximately the same amount each year.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+Of the brain injuries, there is not much to very little change in the data as years progress for the different levels of severity. The graph above makes it apparent that the Army Branch has the widest range of all types of severity throughout all the years. However, the mild and moderate concussions are much more substantial than the not classifiable, penetrating, severe types of concussions. All the other branches remain relatively constant maintaining few TBIs and maintaining approximately the same amount each year.</p>
 <pre class="r"><code>ggplot(data = dat2)+
   geom_point(mapping = aes(y = diagnosed, x = year , color = service))</code></pre>
 <pre><code>## Warning: Removed 12 rows containing missing values (geom_point).</code></pre>
@@ -100,14 +90,16 @@ To determine, I will create a graphic between the type or severity of the TBI to
 <pre class="r"><code>graph1&lt;-filter(dat1, type %in% c(&quot;Deaths&quot; ))%&gt;%
   ggplot(aes(y = number_est,x= type, color = injury_mechanism))+
   geom_point(mapping = aes(y= number_est, x= type, color = injury_mechanism))+
-  theme(axis.text.x = element_text(angle =- 45, hjust = 0))
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
+  ggtitle(&quot;Injury mechanism leading to Deaths&quot;)
 graph1</code></pre>
 <pre><code>## Warning: Removed 9 rows containing missing values (geom_point).</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <pre class="r"><code>graph2&lt;-filter(dat, type %in% c(&quot;Deaths&quot; ))%&gt;%
   ggplot(aes(y = number_est,x= type, color = injury_mechanism))+
   geom_point(mapping = aes(y= number_est, x= type, color = injury_mechanism))+
-  theme(axis.text.x = element_text(angle =- 45, hjust = 0))
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
+  ggtitle(&quot;Injury mechanisms leading to death&quot;)
 graph2</code></pre>
 <pre><code>## Warning: Removed 3 rows containing missing values (geom_point).</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>

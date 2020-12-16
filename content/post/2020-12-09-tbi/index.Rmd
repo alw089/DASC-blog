@@ -42,7 +42,7 @@ ggplot(data =dat)+
   geom_point(mapping = aes(x = age_group, y = number_est, color = injury_mechanism ))+
   xlab("Age Group") +
   ylab("Number of Injuries") +
-  theme(axis.text.x = element_text(angle =- 45, hjust = 0))
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
   ggtitle("Most common injurt mechanisms per age group")
 ```
 Unintentional falls is one of the most substantial injury mechanisms in the data, with it being the greatest reason for almost all the age groups, and being the greatest out of the total group by a large margin. Next most prominent injury mechanism is being unintentionally struck by or against an object, being the second largest for the most of the age groups as well. From this, it appears that there is no correlation between the different types of injury mechanism and the different age groups.
@@ -62,7 +62,7 @@ ggplot(data = dat2)+
    ylab("number of diagnoses") +
     xlab("year") +
     facet_wrap(~ severity, scale = "free")+
-    theme(axis.text.x = element_text(angle =- 45, hjust = 0))
+    theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
     ggtitle("Number of diagnoses compared to its severity per year  ")
 
 ```
@@ -88,7 +88,8 @@ glimpse(dat1)
 graph1<-filter(dat1, type %in% c("Deaths" ))%>%
   ggplot(aes(y = number_est,x= type, color = injury_mechanism))+
   geom_point(mapping = aes(y= number_est, x= type, color = injury_mechanism))+
-  theme(axis.text.x = element_text(angle =- 45, hjust = 0))
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
+  ggtitle("Injury mechanism leading to Deaths")
 graph1
 
         
@@ -98,7 +99,8 @@ graph1
 graph2<-filter(dat, type %in% c("Deaths" ))%>%
   ggplot(aes(y = number_est,x= type, color = injury_mechanism))+
   geom_point(mapping = aes(y= number_est, x= type, color = injury_mechanism))+
-  theme(axis.text.x = element_text(angle =- 45, hjust = 0))
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
+  ggtitle("Injury mechanisms leading to death")
 graph2
 
 
