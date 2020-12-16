@@ -20,7 +20,8 @@ dat2<- read_csv(here::here("data", "tidytuesday", "data", "2020", "2020-03-24", 
 ))
 
 ```
-Traumatic Brain Injuries 
+## Traumatic Brain Injury
+
 For this project, I am examining the traumatic brain injury (TBI) within the data set tbi_age.csv file from the Tidy Tuesday website. The data set has 216 observations of 5 variables. The variable age_group is a factor of 231 levels that represents the age groups of victims of TBI. The variable type is a factor of 231 levels that represents the where the victim went to treat their injury, or the effect of the injury. The variable injury_mechanism is a factor of 231 levels that represents how the victim obtained their injury. The variable number_set is a factor of 231 levels that represents the estimated observed cases in 2014.The variable rate_est is a factor of 231 levels that represents the where the victim went to treat their injury.
 
 With the second, tbi_year.csv data set from Tidy Tuesday website further examines these injuries. The data set has 216 observations of 5 variables. The variable injury_mechanism is a factor of 216 levels that represents how the injury was received. The variable type is a factor of 216 levels that represents went to treat their injury, or the effect of the injury. The variable year is a factor of 216 levels that represents the year of the injury. The variable rate_est is a factor of 216 levels that rate/100,000 in 2014. The variable number_est is a factor of 216 levels that represents estimated observed cases in each year.
