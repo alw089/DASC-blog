@@ -7,7 +7,7 @@ categories: []
 tags: []
 ---
 
-```{r, message = FALSE}
+```{r, message = FALSE, echo = TRUE}
 library(tidyverse)
 library(tinytex)
 library(here)
@@ -19,7 +19,7 @@ library(leaflet)
 library(dplyr)
 ```
 
-```{r, message= FALSE}
+```{r, message= FALSE,echo = TRUE}
 dat3<- read_csv(here::here("data", "tidytuesday", "data", "2020", "2020-08-18", "plants.csv"
 ))
 dat4<- read_csv(here::here("data", "tidytuesday", "data", "2020", "2020-08-18", "threats.csv"
@@ -49,7 +49,7 @@ glimpse(dat4)
  Which countries in North America currently have the most plants in danger by extinction?
  
 To Determine, filter within the data set, observe at a closer lense to the North American Countries
-```{r}
+```{r,echo = TRUE}
 filter(dat4, continent %in% c("North America"))%>%
   filter(year_last_seen == c("2000-2020"))%>%
   filter(threat_type == "Pollution")%>%
