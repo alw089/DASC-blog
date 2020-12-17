@@ -43,17 +43,9 @@ ggplot(data =dat)+
   xlab(&quot;Age Group&quot;) +
   ylab(&quot;Number of Injuries&quot;) +
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
-  ggtitle(&quot;Most common injurt mechanisms per age group&quot;)</code></pre>
+  ggtitle(&quot;Most common injury mechanisms per age group&quot;)</code></pre>
 <pre><code>## Warning: Removed 11 rows containing missing values (geom_point).</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<pre class="r"><code>ggplot(data =dat)+
-  geom_point(mapping = aes(x = age_group, y = number_est, color = injury_mechanism ))+
-  xlab(&quot;Age Group&quot;) +
-  ylab(&quot;Number of Injuries&quot;) +
-  theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
-  ggtitle(&quot;Most common injurt mechanisms per age group&quot;)</code></pre>
-<pre><code>## Warning: Removed 11 rows containing missing values (geom_point).</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-4-2.png" width="672" />
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 Unintentional falls is one of the most substantial injury mechanisms in the data, with it being the greatest reason for almost all the age groups, and being the greatest out of the total group by a large margin. Next most prominent injury mechanism is being unintentionally struck by or against an object, being the second largest for the most of the age groups as well. From this, it appears that there is no correlation between the different types of injury mechanism and the different age groups.</p>
 <pre class="r"><code>glimpse(dat2)</code></pre>
 <pre><code>## Observations: 450
@@ -118,9 +110,9 @@ The two graphs above show the rates of death for the different TBI mechanisms fo
   ggplot(aes( x= type ,y= rate_est, color = injury_mechanism))+
   geom_boxplot(mapping = aes(x = injury_mechanism, y= rate_est, color = injury_mechanism))+
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
-  ylab(&quot;Type of Injury Mechanism&quot;) +
-  xlab(&quot;Number of Deaths&quot;) +
-  ggtitle(&quot;Injury mechanisms leading to death&quot;)
+  xlab(&quot;Type of Injury Mechanism&quot;) +
+  ylab(&quot;Number of Deaths&quot;) +
+  ggtitle(&quot;Injury mechanisms leading to death for 75+ age group&quot;)
 graph2</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <pre class="r"><code>graph3&lt;-filter(dat, type %in% c(&quot;Deaths&quot; ))%&gt;%
@@ -128,9 +120,9 @@ graph2</code></pre>
   ggplot(aes( x= type ,y= rate_est, color = injury_mechanism))+
   geom_boxplot(mapping = aes(x = injury_mechanism, y= rate_est, color = injury_mechanism))+
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
-  ylab(&quot;Type of Injury Mechanism&quot;) +
-  xlab(&quot;Number of Deaths&quot;) +
-  ggtitle(&quot;Injury mechanisms leading to death&quot;)
+  xlab(&quot;Type of Injury Mechanism&quot;) +
+  ylab(&quot;Number of Deaths&quot;) +
+  ggtitle(&quot;Injury mechanisms leading to death for 65-74 age group&quot;)
 
 graph3</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
@@ -139,9 +131,9 @@ graph3</code></pre>
   ggplot(aes( x= type ,y= rate_est, color = injury_mechanism))+
   geom_boxplot(mapping = aes(x = injury_mechanism, y= rate_est, color = injury_mechanism))+
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
-  ylab(&quot;Type of Injury Mechanism&quot;) +
-  xlab(&quot;Number of Deaths&quot;) +
-  ggtitle(&quot;Injury mechanisms leading to death&quot;)
+  xlab(&quot;Type of Injury Mechanism&quot;) +
+  ylab(&quot;Number of Deaths&quot;) +
+  ggtitle(&quot;Injury mechanisms leading to death for 0-17 age group&quot;)
 
 graph4</code></pre>
 <pre><code>## Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
@@ -151,9 +143,9 @@ graph4</code></pre>
   ggplot(aes( x= type ,y= rate_est, color = injury_mechanism))+
   geom_boxplot(mapping = aes(x = injury_mechanism, y= rate_est, color = injury_mechanism))+
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
-  ylab(&quot;Type of Injury Mechanism&quot;) +
-  xlab(&quot;Number of Deaths&quot;) +
-  ggtitle(&quot;Injury mechanisms leading to death&quot;)
+  xlab(&quot;Type of Injury Mechanism&quot;) +
+  ylab(&quot;Number of Deaths&quot;) +
+  ggtitle(&quot;Injury mechanisms leading to death for 25-34 age group&quot;)
 
 graph5</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-13-1.png" width="672" />

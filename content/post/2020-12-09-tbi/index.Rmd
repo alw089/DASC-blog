@@ -43,14 +43,7 @@ ggplot(data =dat)+
   xlab("Age Group") +
   ylab("Number of Injuries") +
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
-  ggtitle("Most common injurt mechanisms per age group")
-
-ggplot(data =dat)+
-  geom_point(mapping = aes(x = age_group, y = number_est, color = injury_mechanism ))+
-  xlab("Age Group") +
-  ylab("Number of Injuries") +
-  theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
-  ggtitle("Most common injurt mechanisms per age group")
+  ggtitle("Most common injury mechanisms per age group")
 
 ```
 Unintentional falls is one of the most substantial injury mechanisms in the data, with it being the greatest reason for almost all the age groups, and being the greatest out of the total group by a large margin. Next most prominent injury mechanism is being unintentionally struck by or against an object, being the second largest for the most of the age groups as well. From this, it appears that there is no correlation between the different types of injury mechanism and the different age groups.
@@ -123,9 +116,9 @@ graph2<-filter(dat, type %in% c("Deaths" ))%>%
   ggplot(aes( x= type ,y= rate_est, color = injury_mechanism))+
   geom_boxplot(mapping = aes(x = injury_mechanism, y= rate_est, color = injury_mechanism))+
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
-  ylab("Type of Injury Mechanism") +
-  xlab("Number of Deaths") +
-  ggtitle("Injury mechanisms leading to death")
+  xlab("Type of Injury Mechanism") +
+  ylab("Number of Deaths") +
+  ggtitle("Injury mechanisms leading to death for 75+ age group")
 graph2
 ```
 
@@ -136,9 +129,9 @@ graph3<-filter(dat, type %in% c("Deaths" ))%>%
   ggplot(aes( x= type ,y= rate_est, color = injury_mechanism))+
   geom_boxplot(mapping = aes(x = injury_mechanism, y= rate_est, color = injury_mechanism))+
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
-  ylab("Type of Injury Mechanism") +
-  xlab("Number of Deaths") +
-  ggtitle("Injury mechanisms leading to death")
+  xlab("Type of Injury Mechanism") +
+  ylab("Number of Deaths") +
+  ggtitle("Injury mechanisms leading to death for 65-74 age group")
 
 graph3
 
@@ -150,9 +143,9 @@ graph4<-filter(dat, type %in% c("Deaths" ))%>%
   ggplot(aes( x= type ,y= rate_est, color = injury_mechanism))+
   geom_boxplot(mapping = aes(x = injury_mechanism, y= rate_est, color = injury_mechanism))+
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
-  ylab("Type of Injury Mechanism") +
-  xlab("Number of Deaths") +
-  ggtitle("Injury mechanisms leading to death")
+  xlab("Type of Injury Mechanism") +
+  ylab("Number of Deaths") +
+  ggtitle("Injury mechanisms leading to death for 0-17 age group")
 
 graph4
 ```
@@ -163,9 +156,9 @@ graph5<-filter(dat, type %in% c("Deaths" ))%>%
   ggplot(aes( x= type ,y= rate_est, color = injury_mechanism))+
   geom_boxplot(mapping = aes(x = injury_mechanism, y= rate_est, color = injury_mechanism))+
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
-  ylab("Type of Injury Mechanism") +
-  xlab("Number of Deaths") +
-  ggtitle("Injury mechanisms leading to death")
+  xlab("Type of Injury Mechanism") +
+  ylab("Number of Deaths") +
+  ggtitle("Injury mechanisms leading to death for 25-34 age group")
 
 graph5
 
