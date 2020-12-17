@@ -47,26 +47,25 @@ glimpse(dat4)
 ```
 
 # Question 1
- Which countries in North America currently have the most plants in danger due to pollution that leads to extinction?
+ Which countries in North America currently have the most plants in danger?
  
 To Determine, filter within the data set, observe at a closer lense to the North American Countries
 ```{r,echo = TRUE}
-q1<- filter(dat4, continent %in% c( "North America"))%>%
+q1<-filter(dat4, continent %in% c( "North America"))%>%
+  group_by(country)%>%
   filter(year_last_seen == c("2000-2020"))%>%
+  filter(threat_type == "Pollution")%>%
   count(threat_type)%>%
-  filter(n>1)
+  filter(n>1)%>%
+  ggplot(aes(x = country, fill = threat_type))+
+    geom_bar()
 q1
 
-```
-
-Of the plants that became extinct in 2000-2020, the majority were last seen in America. 16 were from the United States, 2 from Mexico, and only 1 from Panama.Therefore, the United States has a greater pollution problem than the other two countries.  
-```{r, echo = TRUE}
-filter(dat4, group =="Flowering Plant")%>%
-  count(red_list_category)%>%
-  filter(n>1)
 
 
 ```
+Of the plants that became extinct in 2000-2020 due to pollution, the majority were last seen in America. 16 were from the United States, 2 from Mexico. This insinuates that America has a much larger pollution problem at hand and it is detrimental to their plant species. 
+
 ```{r,echo = TRUE}
 filter(dat4, continent %in% c( "North America"))%>%
   filter(year_last_seen == c("2000-2020"))%>%
@@ -75,35 +74,62 @@ filter(dat4, continent %in% c( "North America"))%>%
 ```
 
 # Question 2 
-How much action is being enforced for the plants going extinct in the North American countries?
+How much action is being enforced for the plants in North American Countries?
 To determine, filter the data to match what the threat was and whether or not action was taken to deter that threat. 
 ```{r, echo = TRUE}
-action_in_NA<- filter(dat5, action_taken == "1")%>%
-  filter(country %in% c("North America", "Mexico", "Canada"))%>%
+action<- filter(dat5, action_taken == "1")%>%
   filter(year_last_seen == "2000-2020")
-action_in_NA
 
-Extinct_in_NA <- filter(dat4, continent %in% c("North America"))%>%
-  filter(year_last_seen == c("2000-2020"))%>%
-  filter(red_list_category %in% c("Extinct", "Extinct in the Wild"))%>%
-  group_by(binomial_name)
-  
+action_total <- filter(dat5 ,action_taken == c("0","1")) %>%
+  filter(year_last_seen == c("2000-2020"))
 
 
-Extinct_in_NA
+proportion <- count(action)/count(action_total)
+
+proportion
+
+action_in_NA<- filter(dat5, action_taken == "1")%>%
+  filter(continent %in% c("North America"))%>%
+  filter(year_last_seen == "2000-2020")
+
+action_total_NA <- filter(dat5 ,action_taken == c("0","1")) %>%
+  filter(continent %in% c("North America"))%>%
+  filter(year_last_seen == c("2000-2020"))
+
+proportion_NA <- count(action_in_NA)/count(action_total_NA)
+proportion_NA
+
 ```
-There was only 2 plants, Agave Iurida and Gossypium armourianum that saw action being taken out of a list of 228 plants in danger.
-Both plants saw action saw action from Mexico, which means none of the other countries tried to administer any action to control the extent of the danger that the plants are in.
+America actually has a slightly greater ratio of action taken to action not taken than the world in total. This makes sense as the United States seems to have one of the greatest extinction rates in the world.
 
-```{r, echo = TRUE}
-glimpse(dat5)
-```
+
 
 # Question 3
-Was there an event in recent history that wiped out, or put multiple plant species in danger? 
-To determine, I will create a graphic graphing the year the plants were last seen as well as the threat the plants are/were in. 
+Is there a year interval where there is a multitude of plants lost in the United States? If so, what is the likely cause for such disappearance?
 ```{r, echo = TRUE}
-
+dat4%>%
+  filter(country == "United States")%>%
+  filter(binomial_name == c("Acaena exigua","Achyranthes atollensis","Adenophorus periens","Brighamia insignis","Clermontia multiflora",  "Stenogyne kanehoana"))%>%
+  ggplot(aes(y= binomial_name, x = year_last_seen))+
+  geom_point(mapping = aes(y= binomial_name, x = year_last_seen))+
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
+  xlab("Year Last Seen") +
+  ylab("Species Name") +
+  ggtitle("Year Last Seen for Plant Species in United States")
 
 
 ```
+To evaluate this question, I picked random plants that were last seen in the United States and compared their disappearance. My reasoning for picking random points is that an event that would "wipe out" different species would not value one type of species above the other, so I figured picking random plants would create an understanding of such event. Out of the 6 I picked, 1/2 of them were last seen in the years 2000-2020. This is likely due to the harm that a more urbanized society has on plant life, such as pollution.
+```{r, echo = TRUE}
+dat4%>%
+  filter(country == "United States")%>%
+  filter(binomial_name == c("Acaena exigua","Achyranthes atollensis","Adenophorus periens","Brighamia insignis","Clermontia multiflora",  "Stenogyne kanehoana"))%>%
+  filter(year_last_seen == "2000-2020")
+
+
+```
+In response to my last claim that it is likely pollution that is so harmful to these plants, not one of them from the group I selected above disappeared from pollution. In fact, all of the 6 plants had a different reason for disappearance. The closest to my hypothesis was that plant Adenophorus periens was threatened by commercial development, the urbanization of America.
+
+
+# Conclusion
+This data set provides very valuable information about the future of plants. This becomes a human problem because we are so dependent on plants to produce the oxygen in our atmosphere.
