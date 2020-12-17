@@ -47,9 +47,9 @@ glimpse(dat4)
 ```
 
 # Question 1
- Which countries in North America currently have the most plants in danger?
+ Which countries in North America have the most disappearances of Plants in the years 2000-2020 due to pollution?
  
-To Determine, filter within the data set, observe at a closer lense to the North American Countries
+To Determine, filter within the data set, observe at a closer lense to the North American Countries using filters to get only the variables I wish to see.
 ```{r}
 q1<-filter(dat4, continent %in% c( "North America"))%>%
   group_by(country)%>%
@@ -83,7 +83,25 @@ q1b
 
   
 ```
-This graph portrays the amount of plants each country has lost, not filtered by the current years. This shows that America is consistently the most harmful to their plants than any other North American country or Island. 
+This graph portrays the amount of plants each country has lost, not filtered by the current years. This shows that America is consistently the most harmful to their plants due to pollution than any other North American country or Island. 
+
+If we examine it even further and look at which countries are more harmful in general (not just looking at pollution like we have in the first two graphs). We should analyze the following:
+```{r}
+q1c<-filter(dat4, continent %in% c( "North America"))%>%
+  group_by(country)%>%
+  ggplot(aes(x = country, count = threat_type, fill = threat_type))+
+  geom_bar()+
+  ggtitle("Plants Disappear in North America")+
+  ylab("Number Disappeared")+
+  xlab("Country in North America")+
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))
+q1c
+
+  
+```
+The distributions look very similar to the second graph in the first question, however, looking at the units on the y axis, it is apparent that this graph displays the total of disappeared plants in North America. And like how the other graphs displayed, the United States again is the most harmful to plants, no matter what the threat type is. 
+
+
 # Question 2 
 How much action is being enforced for the plants in North American Countries?
 To determine, filter the data to match what the threat was and whether or not action was taken to deter that threat. 

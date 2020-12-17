@@ -1,5 +1,14 @@
-<link href="index2_files/anchor-sections/anchor-sections.css" rel="stylesheet" />
-<script src="index2_files/anchor-sections/anchor-sections.js"></script>
+---
+title: Plants in Danger
+author: ~
+date: '2020-12-09'
+slug: plants-in-danger
+categories: []
+tags: []
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 
 
 <pre class="r"><code>library(tidyverse)
@@ -64,8 +73,8 @@ The variable bionomial_name is factor of 3000 levels that represent the species 
 </div>
 <div id="question-1" class="section level1">
 <h1>Question 1</h1>
-<p>Which countries in North America currently have the most plants in danger?</p>
-<p>To Determine, filter within the data set, observe at a closer lense to the North American Countries</p>
+<p>Which countries in North America have the most disappearances of Plants in the years 2000-2020 due to pollution?</p>
+<p>To Determine, filter within the data set, observe at a closer lense to the North American Countries using filters to get only the variables I wish to see.</p>
 <pre class="r"><code>q1&lt;-filter(dat4, continent %in% c( &quot;North America&quot;))%&gt;%
   group_by(country)%&gt;%
   filter(year_last_seen == c(&quot;2000-2020&quot;))%&gt;%
@@ -76,7 +85,7 @@ The variable bionomial_name is factor of 3000 levels that represent the species 
   ylab(&quot;Number Disappeared&quot;)+
   xlab(&quot;Country in North America&quot;)
 q1</code></pre>
-<p><img src="index2_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+<p><img src="/post/2020-12-09-plants-in-danger/index2_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 Of the plants that became extinct in 2000-2020 due to pollution, the majority were last seen in America. 16 were from the United States, 2 from Mexico, 1 from Panama. This insinuates that America has a much larger pollution problem at hand and it is detrimental to their plant species.</p>
 <p>If we take it further to examine which countries in North America are most fatal to their plants we can analyze the following:</p>
 <pre class="r"><code>q1b&lt;-filter(dat4, continent %in% c( &quot;North America&quot;))%&gt;%
@@ -89,10 +98,24 @@ Of the plants that became extinct in 2000-2020 due to pollution, the majority we
   xlab(&quot;Country in North America&quot;)+
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))
 q1b</code></pre>
-<p><img src="index2_files/figure-html/unnamed-chunk-6-1.png" width="672" />
-This graph portrays the amount of plants each country has lost, not filtered by the current years. This shows that America is consistently the most harmful to their plants than any other North American country or Island.
-# Question 2
-How much action is being enforced for the plants in North American Countries?
+<p><img src="/post/2020-12-09-plants-in-danger/index2_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+This graph portrays the amount of plants each country has lost, not filtered by the current years. This shows that America is consistently the most harmful to their plants due to pollution than any other North American country or Island.</p>
+<p>If we examine it even further and look at which countries are more harmful in general (not just looking at pollution like we have in the first two graphs). We should analyze the following:</p>
+<pre class="r"><code>q1c&lt;-filter(dat4, continent %in% c( &quot;North America&quot;))%&gt;%
+  group_by(country)%&gt;%
+  ggplot(aes(x = country, count = threat_type, fill = threat_type))+
+  geom_bar()+
+  ggtitle(&quot;Plants Disappear in North America&quot;)+
+  ylab(&quot;Number Disappeared&quot;)+
+  xlab(&quot;Country in North America&quot;)+
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))
+q1c</code></pre>
+<p><img src="/post/2020-12-09-plants-in-danger/index2_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+The distributions look very similar to the second graph in the first question, however, looking at the units on the y axis, it is apparent that this graph displays the total of disappeared plants in North America. And like how the other graphs displayed, the United States again is the most harmful to plants, no matter what the threat type is.</p>
+</div>
+<div id="question-2" class="section level1">
+<h1>Question 2</h1>
+<p>How much action is being enforced for the plants in North American Countries?
 To determine, filter the data to match what the threat was and whether or not action was taken to deter that threat.</p>
 <pre class="r"><code>action&lt;- filter(dat5, action_taken == &quot;1&quot;)%&gt;%
   filter(year_last_seen == &quot;2000-2020&quot;)
@@ -132,7 +155,7 @@ proportion_NA</code></pre>
   xlab(&quot;Year Last Seen&quot;) +
   ylab(&quot;Species Name&quot;) +
   ggtitle(&quot;Year Last Seen for Plant Species in United States&quot;)</code></pre>
-<p><img src="index2_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<p><img src="/post/2020-12-09-plants-in-danger/index2_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 To evaluate this question, I picked random plants that were last seen in the United States and compared their disappearance. My reasoning for picking random points is that an event that would “wipe out” different species would not value one type of species above the other, so I figured picking random plants would create an understanding of such event. Out of the 6 I picked, 1/2 of them were last seen in the years 2000-2020. This is likely due to the harm that a more urbanized society has on plant life, such as pollution.</p>
 <pre class="r"><code>dat4%&gt;%
   filter(country == &quot;United States&quot;)%&gt;%
