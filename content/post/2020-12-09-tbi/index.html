@@ -54,8 +54,7 @@ ggplot(data =dat)+
   ggtitle(&quot;Most common injurt mechanisms per age group&quot;)</code></pre>
 <pre><code>## Warning: Removed 11 rows containing missing values (geom_point).</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-4-2.png" width="672" />
-Analysis</p>
-<p>Unintentional falls is one of the most substantial injury mechanisms in the data, with it being the greatest reason for almost all the age groups, and being the greatest out of the total group by a large margin. Next most prominent injury mechanism is being unintentionally struck by or against an object, being the second largest for the most of the age groups as well. From this, it appears that there is no correlation between the different types of injury mechanism and the different age groups.</p>
+Unintentional falls is one of the most substantial injury mechanisms in the data, with it being the greatest reason for almost all the age groups, and being the greatest out of the total group by a large margin. Next most prominent injury mechanism is being unintentionally struck by or against an object, being the second largest for the most of the age groups as well. From this, it appears that there is no correlation between the different types of injury mechanism and the different age groups.</p>
 <pre class="r"><code>glimpse(dat2)</code></pre>
 <pre><code>## Observations: 450
 ## Variables: 5
@@ -79,8 +78,7 @@ To determine, I will generate a graph to visualize the number of diagnosed and y
     ggtitle(&quot;Number of diagnoses compared to its severity per year&quot;)</code></pre>
 <pre><code>## Warning: Removed 12 rows containing non-finite values (stat_boxplot).</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="672" />
-Analysis</p>
-<p>Of the brain injuries, there is not much to very little change in the data as years progress for the different levels of severity. The graph above makes it apparent that the Army Branch has the widest range of all types of severity throughout all the years. However, the mild and moderate concussions are much more substantial than the not classifiable, penetrating, severe types of concussions. All the other branches remain relatively constant maintaining few TBIs and maintaining approximately the same amount each year. A positive to mention about the data, is that the more severe and penetrating TBIs have decreased in the most recent years for the Army branch, so there has been some improvement for the military.</p>
+Of the brain injuries, there is not much to very little change in the data as years progress for the different levels of severity. The graph above makes it apparent that the Army Branch has the widest range of all types of severity throughout all the years. However, the mild and moderate concussions are much more substantial than the not classifiable, penetrating, severe types of concussions. All the other branches remain relatively constant maintaining few TBIs and maintaining approximately the same amount each year. A positive to mention about the data, is that the more severe and penetrating TBIs have decreased in the most recent years for the Army branch, so there has been some improvement for the military.</p>
 <pre class="r"><code>ggplot(data = dat2)+
   geom_boxplot(mapping = aes(y = diagnosed, x = factor(year) , color = service))+
   ggtitle(&quot;Number of diagnoses per branch memebrship compared each year&quot;)+
@@ -88,10 +86,11 @@ Analysis</p>
   xlab(&quot;Year Diagnosed&quot;)</code></pre>
 <pre><code>## Warning: Removed 12 rows containing non-finite values (stat_boxplot).</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-7-1.png" width="672" />
-Analysis</p>
-<p>This is another graph depicting the amount diagnosed per year throughout the military. Again, the Army has way more cases each year than any other branch in the military. Again, the number of cases do not change much as time progresses. Analyzing the Army branch box plot, they have significantly more cases than any of the other branches, better analyzed in the first graph for question 2.</p>
-<p>#Question 3
-Throughout the different data sets, are deaths from TBI severity based?
+This is another graph depicting the amount diagnosed per year throughout the military. Again, the Army has way more cases each year than any other branch in the military. Again, the number of cases do not change much as time progresses. Analyzing the Army branch box plot, they have significantly more cases than any of the other branches, better analyzed in the first graph for question 2.</p>
+</div>
+<div id="question-3" class="section level1">
+<h1>Question 3</h1>
+<p>Throughout the different data sets, are deaths from TBI severity based?
 To determine, I will create a graphic between the type or severity of the TBI to the deaths for the two data sets that have such data available.</p>
 <pre class="r"><code>graph1&lt;-filter(dat1, type %in% c(&quot;Deaths&quot; ))%&gt;%
   ggplot(aes(y = number_est,x= type, color = type))+
@@ -112,8 +111,7 @@ graph1</code></pre>
   ggtitle(&quot;Injury mechanisms leading to death&quot;)</code></pre>
 <pre><code>## Warning: Removed 3 rows containing non-finite values (stat_boxplot).</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-9-1.png" width="672" />
-Analysis</p>
-<p>The two graphs above show the rates of death for the different TBI mechanisms for the two different variables that had type = “Death” as an observation. The first graph, from the tbi_age.csv, clearly identifies intentional self harm as the most deadly TBI mechanism, its median being substantially higher than any other mechanism. The second and third most deadly appeared to be unintentional falls and motor vehicle crashes respectively. Following the data set tbi_year.csv, similar data was collected, just on a smaller scale. The three deadliest from the first graph remained the deadliest on this data set, with the intentional self harm’s median being greater than all the other mechanisms. And like the other data set, had unintentional falls and motor vehicle crashes as the following mechanisms.</p>
+The two graphs above show the rates of death for the different TBI mechanisms for the two different variables that had type = “Death” as an observation. The first graph, from the tbi_age.csv, clearly identifies intentional self harm as the most deadly TBI mechanism, its median being substantially higher than any other mechanism. The second and third most deadly appeared to be unintentional falls and motor vehicle crashes respectively. Following the data set tbi_year.csv, similar data was collected, just on a smaller scale. The three deadliest from the first graph remained the deadliest on this data set, with the intentional self harm’s median being greater than all the other mechanisms. And like the other data set, had unintentional falls and motor vehicle crashes as the following mechanisms.</p>
 <p>I wanted to look further into the most common death’s from TBI compared by age group so I continued with this question, comparing the two oldest age groups to some of the two youngest age groups. The following are my observations:</p>
 <pre class="r"><code>graph2&lt;-filter(dat, type %in% c(&quot;Deaths&quot; ))%&gt;%
   filter(age_group == c(&quot;75+&quot;))%&gt;%
@@ -159,10 +157,11 @@ graph4</code></pre>
 
 graph5</code></pre>
 <p><img src="index_files/figure-html/unnamed-chunk-13-1.png" width="672" />
-Analysis</p>
-<p>I was happy to see that each age group presented very different data and it was apparent which mechanisms were the most deadly in each age group. I was originally curious about this when I analyzed the data of all the age groups combined (the first graph of question 3) and it showed unintentional falls as one of the most deadly. It is unlikely that a younger individual would die from an unintentional fall, but it is a very common way to pass as a senior citizen. Both of the two oldest age groups has unintentional falls as the most common death.The 0-17 graph and 25-34 graph share the 3 most common most deadly mechanisms, but the data for the 0-17 does not include any intentional self-harm, most likely for legality reasons. However, neither display the death rate for unintentional falls as the highest, like how the oldest age groups did.</p>
-<p>#Conclusion
-Traumatic Brain Injuries can effect anyone in any walk of life, and can be obtained by doing almost anything. Unintentional falls appeared to be the most common way to receive a concussion, but only appeared to be deadly for older age groups.
+I was happy to see that each age group presented very different data and it was apparent which mechanisms were the most deadly in each age group. I was originally curious about this when I analyzed the data of all the age groups combined (the first graph of question 3) and it showed unintentional falls as one of the most deadly. It is unlikely that a younger individual would die from an unintentional fall, but it is a very common way to pass as a senior citizen. Both of the two oldest age groups has unintentional falls as the most common death.The 0-17 graph and 25-34 graph share the 3 most common most deadly mechanisms, but the data for the 0-17 does not include any intentional self-harm, most likely for legality reasons. However, neither display the death rate for unintentional falls as the highest, like how the oldest age groups did.</p>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p>Traumatic Brain Injuries can effect anyone in any walk of life, and can be obtained by doing almost anything. Unintentional falls appeared to be the most common way to receive a concussion, but only appeared to be deadly for older age groups.
 With the data expressed in question 2, what should the Military’s response be to help better protect the troops? Research for TBI is very recent, so it is understandable why the numbers are still high in 2014, but there are still more precautionary measures that can be taken up to maintain proper mental health for the Army. A suggestion could be to increase the padding in Army helmets comparable to football helmets. Also giving extended time off to allow for full recovery after receiving a TBI. Lastly, educate the branch on the symptoms, the ways one could be received, and the overall effect of TBIs so they can self diagnose themselves if they feel they have received one.
 TBIs are very serious as they affect the individual long after the initial concussion. Personally, I have had 3 concussions from my years of playing soccer and still face challenges though I got my last one almost a year ago. I will continue to look more into data posted about TBIs as more become readily available.</p>
 </div>
