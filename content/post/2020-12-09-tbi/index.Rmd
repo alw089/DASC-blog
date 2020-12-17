@@ -53,6 +53,7 @@ ggplot(data =dat)+
   ggtitle("Most common injurt mechanisms per age group")
 
 ```
+# Analysis
 Unintentional falls is one of the most substantial injury mechanisms in the data, with it being the greatest reason for almost all the age groups, and being the greatest out of the total group by a large margin. Next most prominent injury mechanism is being unintentionally struck by or against an object, being the second largest for the most of the age groups as well. From this, it appears that there is no correlation between the different types of injury mechanism and the different age groups.
 
 ```{r}
@@ -73,64 +74,113 @@ ggplot(data = dat2)+
     theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
     ggtitle("Number of diagnoses compared to its severity per year")
 ```
-Of the brain injuries, there is not much to very little change in the data as years progress for the different levels of severity. The graph above makes it apparent that the Army Branch has the widest range of all types of severity throughout all the years. However, the mild and moderate concussions are much more substantial than the not classifiable, penetrating, severe types of concussions. All the other branches remain relatively constant maintaining few TBIs and maintaining approximately the same amount each year.  
+# Analysis
+Of the brain injuries, there is not much to very little change in the data as years progress for the different levels of severity. The graph above makes it apparent that the Army Branch has the widest range of all types of severity throughout all the years. However, the mild and moderate concussions are much more substantial than the not classifiable, penetrating, severe types of concussions. All the other branches remain relatively constant maintaining few TBIs and maintaining approximately the same amount each year. A positive to mention about the data, is that the more severe and penetrating TBIs have decreased in the most recent years for the Army branch, so there has been some improvement for the military. 
 
 ```{r}
 
 ggplot(data = dat2)+
   geom_boxplot(mapping = aes(y = diagnosed, x = factor(year) , color = service))+
-  ggtitle("Number of diagnoses per branch memebrship compared to the year")+
+  ggtitle("Number of diagnoses per branch memebrship compared each year")+
   ylab("Number of Diagnosis")+
   xlab("Year Diagnosed")
 
 
 ```
-This is another graph depicting the amount diagnosed per year throughout the military. Again, the Army has way more cases each year than any other branch in the military.
-
+# Analysis
+This is another graph depicting the amount diagnosed per year throughout the military. Again, the Army has way more cases each year than any other branch in the military. Again, the number of cases do not change much as time progresses. Analyzing the Army branch box plot, they have  significantly more cases than any of the other branches, better analyzed in the first graph for question 2.
 
 
 #Question 3
 Throughout the different data sets, are deaths from TBI severity based? 
 To determine, I will create a graphic between the type or severity of the TBI to the deaths for the two data sets that have such data available.
-```{r}
-glimpse(dat1)
-```
 
 ```{r}
 graph1<-filter(dat1, type %in% c("Deaths" ))%>%
-  ggplot(aes(y = number_est,x= type, color = injury_mechanism))+
-  geom_boxplot(mapping = aes(y= number_est, x= injury_mechanism, color = injury_mechanism))+
+  ggplot(aes(y = number_est,x= type, color = type))+
+  geom_boxplot(mapping = aes(y= number_est, x= injury_mechanism, color = type))+
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
+  xlab("Type of Injury Mechanism") +
+  ylab("Number of Deaths") +
   ggtitle("Injury mechanism leading to Deaths")
 graph1
 
         
-```
+``` 
+```{r}
+filter(dat, type %in% c("Deaths" ))%>%
+  ggplot(aes( x= type ,y= rate_est, color = type))+
+  geom_boxplot(mapping = aes(x = injury_mechanism, y= rate_est, color = type))+
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
+  xlab("Type of Injury Mechanism") +
+  ylab("Number of Deaths") +
+  ggtitle("Injury mechanisms leading to death")
 
+```
+# Analysis
+The two graphs above show the rates of death for the different TBI mechanisms for the two different variables that had type = "Death" as an observation. The first graph, from the tbi_age.csv, clearly identifies intentional self harm as the most deadly TBI mechanism, its median being substantially higher than any other mechanism. The second and third most deadly appeared to be unintentional falls and motor vehicle crashes respectively. Following the data set tbi_year.csv, similar data was collected, just on a smaller scale. The three deadliest from the first graph remained the deadliest on this data set, with the intentional self harm's median being greater than all the other mechanisms. And like the other data set, had unintentional falls and motor vehicle crashes as the following mechanisms. 
+
+I wanted to look further into the most common death's from TBI compared by age group so I continued with this question, comparing the two oldest age groups to some of the two youngest age groups. The following are my observations:
 ```{r}
 graph2<-filter(dat, type %in% c("Deaths" ))%>%
-  ggplot(aes(count = type ,x= injury_mechanism, color = injury_mechanism))+
-  geom_boxplot(mapping = aes(count = type, x= injury_mechanism, color = injury_mechanism))+
+  filter(age_group == c("75+"))%>%
+  ggplot(aes( x= type ,y= rate_est, color = injury_mechanism))+
+  geom_boxplot(mapping = aes(x = injury_mechanism, y= rate_est, color = injury_mechanism))+
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
   ylab("Type of Injury Mechanism") +
   xlab("Number of Deaths") +
   ggtitle("Injury mechanisms leading to death")
 graph2
-
-
-#graph examining deaths per age group
-# graph3<-filter(dat, type %in% c("Deaths" ))%>%
-#   ggplot(aes(x= age_group,y= type, color = injury_mechanism))+
-#   geom_point(mapping = aes(z= age_group, y= type, color = injury_mechanism))+
-#   theme(axis.text.x = element_text(angle =- 45, hjust = 0))
-# graph3
 ```
-The graphs both depict that "Intentional self harm causes the most deaths for TBI injuries. Of the unintentional mechanisms, unintentional falls and motor vehicle crashes are the most deathly injury mechanism. For the most part, the other injury mechanisms maintain the same amount of deaths, so it is very clear from the data that the most deadly 
+
 
 ```{r}
-glimpse(dat)
-```
-# Conclusion
+graph3<-filter(dat, type %in% c("Deaths" ))%>%
+  filter(age_group == c("65-74"))%>%
+  ggplot(aes( x= type ,y= rate_est, color = injury_mechanism))+
+  geom_boxplot(mapping = aes(x = injury_mechanism, y= rate_est, color = injury_mechanism))+
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
+  ylab("Type of Injury Mechanism") +
+  xlab("Number of Deaths") +
+  ggtitle("Injury mechanisms leading to death")
 
+graph3
+
+```
+
+```{r}
+graph4<-filter(dat, type %in% c("Deaths" ))%>%
+  filter(age_group == c("0-17"))%>%
+  ggplot(aes( x= type ,y= rate_est, color = injury_mechanism))+
+  geom_boxplot(mapping = aes(x = injury_mechanism, y= rate_est, color = injury_mechanism))+
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
+  ylab("Type of Injury Mechanism") +
+  xlab("Number of Deaths") +
+  ggtitle("Injury mechanisms leading to death")
+
+graph4
+```
+
+```{r}
+graph5<-filter(dat, type %in% c("Deaths" ))%>%
+  filter(age_group == c("25-34"))%>%
+  ggplot(aes( x= type ,y= rate_est, color = injury_mechanism))+
+  geom_boxplot(mapping = aes(x = injury_mechanism, y= rate_est, color = injury_mechanism))+
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
+  ylab("Type of Injury Mechanism") +
+  xlab("Number of Deaths") +
+  ggtitle("Injury mechanisms leading to death")
+
+graph5
+
+
+```
+# Analysis
+I was happy to see that each age group presented very different data and it was apparent which mechanisms were the most deadly in each age group. I was originally curious about this when I analyzed the data of all the age groups combined (the first graph of question 3) and it showed unintentional falls as one of the most deadly. It is unlikely that a younger individual would die from an unintentional fall, but it is a very common way to pass as a senior citizen. Both of the two oldest age groups has unintentional falls as the most common death.The 0-17 graph and 25-34 graph share the 3 most common most deadly mechanisms, but the data for the 0-17 does not include any intentional self-harm, most likely for legality reasons. However, neither display the death rate for unintentional falls as the highest, like how the oldest age groups did. 
+
+# Conclusion
+Traumatic Brain Injuries can effect anyone in any walk of life, and can be obtained by doing almost anything. Unintentional falls appeared to be the most common way to receive a concussion, but only appeared to be deadly for older age groups. 
+With the data expressed in question 2, what should the Military's response be to help better protect the troops? Research for TBI is very recent, so it is understandable why the numbers are still high in 2014, but there are still more precautionary measures that can be taken up to maintain proper mental health for the Army. A suggestion could be to increase the padding in Army helmets comparable to football helmets. Also giving extended time off to allow for full recovery after receiving a TBI. Lastly, educate the branch on the symptoms, the ways one could be received, and the overall effect of TBIs so they can self diagnose themselves if they feel they have received one. 
+TBIs are very serious as they affect the individual long after the initial concussion. Personally, I have had 3 concussions from my years of playing soccer and still face challenges though I got my last one almost a year ago. I will continue to look more into data posted about TBIs as more become readily available. 
 
 
