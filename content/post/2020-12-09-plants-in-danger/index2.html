@@ -1,14 +1,5 @@
----
-title: Plants in Danger
-author: ~
-date: '2020-12-09'
-slug: plants-in-danger
-categories: []
-tags: []
----
-
-<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+<link href="index2_files/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="index2_files/anchor-sections/anchor-sections.js"></script>
 
 
 <pre class="r"><code>library(tidyverse)
@@ -73,91 +64,93 @@ The variable bionomial_name is factor of 3000 levels that represent the species 
 </div>
 <div id="question-1" class="section level1">
 <h1>Question 1</h1>
-<p>Which countries in North America currently have the most plants in danger by extinction?</p>
+<p>Which countries in North America currently have the most plants in danger?</p>
 <p>To Determine, filter within the data set, observe at a closer lense to the North American Countries</p>
-<pre class="r"><code>filter(dat4, continent %in% c(&quot;North America&quot;))%&gt;%
+<pre class="r"><code>q1&lt;-filter(dat4, continent %in% c( &quot;North America&quot;))%&gt;%
+  group_by(country)%&gt;%
   filter(year_last_seen == c(&quot;2000-2020&quot;))%&gt;%
   filter(threat_type == &quot;Pollution&quot;)%&gt;%
-  filter(red_list_category %in% c(&quot;Extinct&quot;, &quot;Extinct in the Wild&quot;))</code></pre>
-<pre><code>## # A tibble: 19 x 8
-##    binomial_name country continent group year_last_seen red_list_catego…
-##    &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;           
-##  1 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
-##  2 Agave lurida  Mexico  North Am… Flow… 2000-2020      Extinct in the …
-##  3 Artemisia ka… United… North Am… Flow… 2000-2020      Extinct         
-##  4 Brighamia in… United… North Am… Flow… 2000-2020      Extinct in the …
-##  5 Costus vinos… Panama  North Am… Flow… 2000-2020      Extinct in the …
-##  6 Cyanea kuhih… United… North Am… Flow… 2000-2020      Extinct in the …
-##  7 Cyanea pinna… United… North Am… Flow… 2000-2020      Extinct in the …
-##  8 Cyanea super… United… North Am… Flow… 2000-2020      Extinct in the …
-##  9 Delissea rhy… United… North Am… Flow… 2000-2020      Extinct in the …
-## 10 Gossypium ar… Mexico  North Am… Flow… 2000-2020      Extinct in the …
-## 11 Kanaloa kaho… United… North Am… Flow… 2000-2020      Extinct in the …
-## 12 Melicope cru… United… North Am… Flow… 2000-2020      Extinct         
-## 13 Melicope pan… United… North Am… Flow… 2000-2020      Extinct         
-## 14 Phyllostegia… United… North Am… Flow… 2000-2020      Extinct         
-## 15 Phyllostegia… United… North Am… Flow… 2000-2020      Extinct in the …
-## 16 Stenogyne bi… United… North Am… Flow… 2000-2020      Extinct in the …
-## 17 Stenogyne ca… United… North Am… Flow… 2000-2020      Extinct in the …
-## 18 Stenogyne ka… United… North Am… Flow… 2000-2020      Extinct in the …
-## 19 Wikstroemia … United… North Am… Flow… 2000-2020      Extinct         
-## # … with 2 more variables: threat_type &lt;chr&gt;, threatened &lt;dbl&gt;</code></pre>
-<p>Of the plants that became extinct in 2000-2020, the majority were last seen in America. 16 were from the United States, 2 from Mexico, and only 1 from Panama.Therefore, the United States has a greater pollution problem than the other two countries.</p>
-</div>
-<div id="question-2" class="section level1">
-<h1>Question 2</h1>
-<p>How much action is being enforced for the plants going extinct in the North American countries?
+  ggplot(aes(x = country, count = threat_type, fill = threat_type))+
+  geom_bar()+
+  ggtitle(&quot;Pollution reason Plants Disappear in the years 2000-2020 in North America&quot;)+
+  ylab(&quot;Number Disappeared&quot;)+
+  xlab(&quot;Country in North America&quot;)
+q1</code></pre>
+<p><img src="index2_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+Of the plants that became extinct in 2000-2020 due to pollution, the majority were last seen in America. 16 were from the United States, 2 from Mexico, 1 from Panama. This insinuates that America has a much larger pollution problem at hand and it is detrimental to their plant species.</p>
+<p>If we take it further to examine which countries in North America are most fatal to their plants we can analyze the following:</p>
+<pre class="r"><code>q1b&lt;-filter(dat4, continent %in% c( &quot;North America&quot;))%&gt;%
+  group_by(country)%&gt;%
+  filter(threat_type == &quot;Pollution&quot;)%&gt;%
+  ggplot(aes(x = country, count = threat_type, fill = threat_type))+
+  geom_bar()+
+  ggtitle(&quot;Pollution reason Plants Disappear in North America&quot;)+
+  ylab(&quot;Number Disappeared&quot;)+
+  xlab(&quot;Country in North America&quot;)+
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))
+q1b</code></pre>
+<p><img src="index2_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+This graph portrays the amount of plants each country has lost, not filtered by the current years. This shows that America is consistently the most harmful to their plants than any other North American country or Island.
+# Question 2
+How much action is being enforced for the plants in North American Countries?
 To determine, filter the data to match what the threat was and whether or not action was taken to deter that threat.</p>
-<pre class="r"><code>action_in_NA&lt;- filter(dat5, action_taken == &quot;1&quot;)%&gt;%
-  filter(country %in% c(&quot;North America&quot;, &quot;Mexico&quot;, &quot;Canada&quot;))%&gt;%
+<pre class="r"><code>action&lt;- filter(dat5, action_taken == &quot;1&quot;)%&gt;%
   filter(year_last_seen == &quot;2000-2020&quot;)
-action_in_NA</code></pre>
-<pre><code>## # A tibble: 2 x 8
-##   binomial_name country continent group year_last_seen red_list_catego…
-##   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;           
-## 1 Agave lurida  Mexico  North Am… Flow… 2000-2020      Extinct in the …
-## 2 Gossypium ar… Mexico  North Am… Flow… 2000-2020      Extinct in the …
-## # … with 2 more variables: action_type &lt;chr&gt;, action_taken &lt;dbl&gt;</code></pre>
-<pre class="r"><code>Extinct_in_NA &lt;- filter(dat4, continent %in% c(&quot;North America&quot;))%&gt;%
-  filter(year_last_seen == c(&quot;2000-2020&quot;))%&gt;%
-  filter(red_list_category %in% c(&quot;Extinct&quot;, &quot;Extinct in the Wild&quot;))%&gt;%
-  group_by(binomial_name)
-  
+
+action_total &lt;- filter(dat5 ,action_taken == c(&quot;0&quot;,&quot;1&quot;)) %&gt;%
+  filter(year_last_seen == c(&quot;2000-2020&quot;))
 
 
-Extinct_in_NA</code></pre>
-<pre><code>## # A tibble: 228 x 8
-## # Groups:   binomial_name [19]
-##    binomial_name country continent group year_last_seen red_list_catego…
-##    &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;           
-##  1 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
-##  2 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
-##  3 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
-##  4 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
-##  5 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
-##  6 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
-##  7 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
-##  8 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
-##  9 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
-## 10 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
-## # … with 218 more rows, and 2 more variables: threat_type &lt;chr&gt;,
-## #   threatened &lt;dbl&gt;</code></pre>
-<p>There was only 2 plants, Agave Iurida and Gossypium armourianum that saw action being taken out of a list of 228 plants in danger.
-Both plants saw action saw action from Mexico, which means none of the other countries tried to administer any action to control the extent of the danger that the plants are in.</p>
-<pre class="r"><code>glimpse(dat5)</code></pre>
-<pre><code>## Observations: 3,000
-## Variables: 8
-## $ binomial_name     &lt;chr&gt; &quot;Abutilon pitcairnense&quot;, &quot;Abutilon pitcairnense&quot;, &quot;…
-## $ country           &lt;chr&gt; &quot;Pitcairn&quot;, &quot;Pitcairn&quot;, &quot;Pitcairn&quot;, &quot;Pitcairn&quot;, &quot;Pi…
-## $ continent         &lt;chr&gt; &quot;Oceania&quot;, &quot;Oceania&quot;, &quot;Oceania&quot;, &quot;Oceania&quot;, &quot;Oceani…
-## $ group             &lt;chr&gt; &quot;Flowering Plant&quot;, &quot;Flowering Plant&quot;, &quot;Flowering Pl…
-## $ year_last_seen    &lt;chr&gt; &quot;2000-2020&quot;, &quot;2000-2020&quot;, &quot;2000-2020&quot;, &quot;2000-2020&quot;,…
-## $ red_list_category &lt;chr&gt; &quot;Extinct in the Wild&quot;, &quot;Extinct in the Wild&quot;, &quot;Exti…
-## $ action_type       &lt;chr&gt; &quot;Land &amp; Water Protection&quot;, &quot;Species Management&quot;, &quot;L…
-## $ action_taken      &lt;dbl&gt; 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, …</code></pre>
+proportion &lt;- count(action)/count(action_total)
+
+proportion</code></pre>
+<pre><code>##          n
+## 1 0.442623</code></pre>
+<pre class="r"><code>action_in_NA&lt;- filter(dat5, action_taken == &quot;1&quot;)%&gt;%
+  filter(continent %in% c(&quot;North America&quot;))%&gt;%
+  filter(year_last_seen == &quot;2000-2020&quot;)
+
+action_total_NA &lt;- filter(dat5 ,action_taken == c(&quot;0&quot;,&quot;1&quot;)) %&gt;%
+  filter(continent %in% c(&quot;North America&quot;))%&gt;%
+  filter(year_last_seen == c(&quot;2000-2020&quot;))
+
+proportion_NA &lt;- count(action_in_NA)/count(action_total_NA)
+proportion_NA</code></pre>
+<pre><code>##           n
+## 1 0.4459459</code></pre>
+<p>America actually has a slightly greater ratio of action taken to action not taken than the world in total. This makes sense as the United States seems to have one of the greatest extinction rates in the world.</p>
 </div>
 <div id="question-3" class="section level1">
 <h1>Question 3</h1>
-<p>Was there an event in recent history that wiped out, or put multiple plant species in danger?
-To determine, I will create a graphic graphing the year the plants were last seen as well as the threat the plants are/were in.</p>
+<p>Is there a year interval where there is a multitude of plants lost in the United States? If so, what is the likely cause for such disappearance?</p>
+<pre class="r"><code>dat4%&gt;%
+  filter(country == &quot;United States&quot;)%&gt;%
+  filter(binomial_name == c(&quot;Acaena exigua&quot;,&quot;Achyranthes atollensis&quot;,&quot;Adenophorus periens&quot;,&quot;Brighamia insignis&quot;,&quot;Clermontia multiflora&quot;,  &quot;Stenogyne kanehoana&quot;))%&gt;%
+  ggplot(aes(y= binomial_name, x = year_last_seen))+
+  geom_point(mapping = aes(y= binomial_name, x = year_last_seen))+
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
+  xlab(&quot;Year Last Seen&quot;) +
+  ylab(&quot;Species Name&quot;) +
+  ggtitle(&quot;Year Last Seen for Plant Species in United States&quot;)</code></pre>
+<p><img src="index2_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+To evaluate this question, I picked random plants that were last seen in the United States and compared their disappearance. My reasoning for picking random points is that an event that would “wipe out” different species would not value one type of species above the other, so I figured picking random plants would create an understanding of such event. Out of the 6 I picked, 1/2 of them were last seen in the years 2000-2020. This is likely due to the harm that a more urbanized society has on plant life, such as pollution.</p>
+<pre class="r"><code>dat4%&gt;%
+  filter(country == &quot;United States&quot;)%&gt;%
+  filter(binomial_name == c(&quot;Acaena exigua&quot;,&quot;Achyranthes atollensis&quot;,&quot;Adenophorus periens&quot;,&quot;Brighamia insignis&quot;,&quot;Clermontia multiflora&quot;,  &quot;Stenogyne kanehoana&quot;))%&gt;%
+  filter(year_last_seen == &quot;2000-2020&quot;)</code></pre>
+<pre><code>## # A tibble: 6 x 8
+##   binomial_name country continent group year_last_seen red_list_catego…
+##   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;           
+## 1 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
+## 2 Adenophorus … United… North Am… Fern… 2000-2020      Extinct         
+## 3 Brighamia in… United… North Am… Flow… 2000-2020      Extinct in the …
+## 4 Brighamia in… United… North Am… Flow… 2000-2020      Extinct in the …
+## 5 Stenogyne ka… United… North Am… Flow… 2000-2020      Extinct in the …
+## 6 Stenogyne ka… United… North Am… Flow… 2000-2020      Extinct in the …
+## # … with 2 more variables: threat_type &lt;chr&gt;, threatened &lt;dbl&gt;</code></pre>
+<p>In response to my last claim that it is likely pollution that is so harmful to these plants, not one of them from the group I selected above disappeared from pollution. In fact, all of the 6 plants had a different reason for disappearance. The closest to my hypothesis was that plant Adenophorus periens was threatened by commercial development, the urbanization of America.</p>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p>This data set provides very valuable information about the future of plants. This becomes a human problem because we are so dependent on plants to produce the oxygen in our atmosphere. It is apparent in almost all the data sets that America is the leading “killer” of plants, however, they have had enacted action to deter this fact. The loss of plants is inevitable, especially with increased urbanization and the negative side effects that it brings (climate change, pollution, commercial development, etc). But as urbanization continues, so must the action taken by local or federal government to ensure the safety of these valuable plants.</p>
 </div>
