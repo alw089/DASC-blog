@@ -54,6 +54,7 @@ ggplot(data =dat)+
 
 ```
 # Analysis
+
 Unintentional falls is one of the most substantial injury mechanisms in the data, with it being the greatest reason for almost all the age groups, and being the greatest out of the total group by a large margin. Next most prominent injury mechanism is being unintentionally struck by or against an object, being the second largest for the most of the age groups as well. From this, it appears that there is no correlation between the different types of injury mechanism and the different age groups.
 
 ```{r}
@@ -75,6 +76,7 @@ ggplot(data = dat2)+
     ggtitle("Number of diagnoses compared to its severity per year")
 ```
 # Analysis
+
 Of the brain injuries, there is not much to very little change in the data as years progress for the different levels of severity. The graph above makes it apparent that the Army Branch has the widest range of all types of severity throughout all the years. However, the mild and moderate concussions are much more substantial than the not classifiable, penetrating, severe types of concussions. All the other branches remain relatively constant maintaining few TBIs and maintaining approximately the same amount each year. A positive to mention about the data, is that the more severe and penetrating TBIs have decreased in the most recent years for the Army branch, so there has been some improvement for the military. 
 
 ```{r}
@@ -88,6 +90,7 @@ ggplot(data = dat2)+
 
 ```
 # Analysis
+
 This is another graph depicting the amount diagnosed per year throughout the military. Again, the Army has way more cases each year than any other branch in the military. Again, the number of cases do not change much as time progresses. Analyzing the Army branch box plot, they have  significantly more cases than any of the other branches, better analyzed in the first graph for question 2.
 
 
@@ -118,6 +121,7 @@ filter(dat, type %in% c("Deaths" ))%>%
 
 ```
 # Analysis
+
 The two graphs above show the rates of death for the different TBI mechanisms for the two different variables that had type = "Death" as an observation. The first graph, from the tbi_age.csv, clearly identifies intentional self harm as the most deadly TBI mechanism, its median being substantially higher than any other mechanism. The second and third most deadly appeared to be unintentional falls and motor vehicle crashes respectively. Following the data set tbi_year.csv, similar data was collected, just on a smaller scale. The three deadliest from the first graph remained the deadliest on this data set, with the intentional self harm's median being greater than all the other mechanisms. And like the other data set, had unintentional falls and motor vehicle crashes as the following mechanisms. 
 
 I wanted to look further into the most common death's from TBI compared by age group so I continued with this question, comparing the two oldest age groups to some of the two youngest age groups. The following are my observations:
@@ -176,6 +180,7 @@ graph5
 
 ```
 # Analysis
+
 I was happy to see that each age group presented very different data and it was apparent which mechanisms were the most deadly in each age group. I was originally curious about this when I analyzed the data of all the age groups combined (the first graph of question 3) and it showed unintentional falls as one of the most deadly. It is unlikely that a younger individual would die from an unintentional fall, but it is a very common way to pass as a senior citizen. Both of the two oldest age groups has unintentional falls as the most common death.The 0-17 graph and 25-34 graph share the 3 most common most deadly mechanisms, but the data for the 0-17 does not include any intentional self-harm, most likely for legality reasons. However, neither display the death rate for unintentional falls as the highest, like how the oldest age groups did. 
 
 # Conclusion
