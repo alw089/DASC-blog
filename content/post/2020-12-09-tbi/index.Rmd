@@ -63,15 +63,19 @@ ggplot(data = dat2)+
     xlab("year") +
     facet_wrap(~ severity, scale = "free")+
     theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
-    ggtitle("Number of diagnoses compared to its severity per year  ")
-
+    ggtitle("Number of diagnoses compared to its severity per year")
 ```
 Of the brain injuries, there is not much to very little change in the data as years progress for the different levels of severity. The graph above makes it apparent that the Army Branch has the widest range of all types of severity throughout all the years. However, the mild and moderate concussions are much more substantial than the not classifiable, penetrating, severe types of concussions. All the other branches remain relatively constant maintaining few TBIs and maintaining approximately the same amount each year.  
 
 ```{r}
 
 ggplot(data = dat2)+
-  geom_point(mapping = aes(y = diagnosed, x = year , color = service))
+  geom_boxplot(mapping = aes(y = diagnosed, x = factor(year) , color = service))+
+  ggtitle("Number of diagnoses per branch memebrship compared to the year")+
+  ylab("Number of Diagnosis")+
+  xlab("Year Diagnosed")
+
+
 ```
 This is another graph depicting the amount diagnosed per year throughout the military. Again, the Army has way more cases each year than any other branch in the military.
 
@@ -87,7 +91,7 @@ glimpse(dat1)
 ```{r}
 graph1<-filter(dat1, type %in% c("Deaths" ))%>%
   ggplot(aes(y = number_est,x= type, color = injury_mechanism))+
-  geom_point(mapping = aes(y= number_est, x= type, color = injury_mechanism))+
+  geom_boxplot(mapping = aes(y= number_est, x= injury_mechanism, color = injury_mechanism))+
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
   ggtitle("Injury mechanism leading to Deaths")
 graph1
@@ -98,8 +102,10 @@ graph1
 ```{r}
 graph2<-filter(dat, type %in% c("Deaths" ))%>%
   ggplot(aes(y = number_est,x= type, color = injury_mechanism))+
-  geom_point(mapping = aes(y= number_est, x= type, color = injury_mechanism))+
+  geom_boxplot(mapping = aes(y= number_est, x= type, color = injury_mechanism))+
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
+  ylab("Type of Injury Mechanism") +
+  xlab("Number of Dea") +
   ggtitle("Injury mechanisms leading to death")
 graph2
 
@@ -116,5 +122,7 @@ The graphs both depict that "Intentional self harm causes the most deaths for TB
 ```{r}
 glimpse(dat)
 ```
-Conclusion:
+# Conclusion
+
+
 
