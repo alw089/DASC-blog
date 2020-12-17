@@ -1,12 +1,3 @@
----
-title: TBI
-author: ~
-date: '2020-12-09'
-slug: tbi
-categories: []
-tags: []
----
-
 <link href="index_files/anchor-sections/anchor-sections.css" rel="stylesheet" />
 <script src="index_files/anchor-sections/anchor-sections.js"></script>
 
@@ -33,8 +24,8 @@ dat2&lt;- read_csv(here::here(&quot;data&quot;, &quot;tidytuesday&quot;, &quot;d
 ## $ number_est       &lt;dbl&gt; 47138, 397190, 229236, 55785, NA, 24360, 57983, 5464…
 ## $ rate_est         &lt;dbl&gt; 64.1, 539.8, 311.6, 75.8, NA, 33.1, 78.8, 27.5, 1161…</code></pre>
 </div>
-<div id="question-1" class="section level1">
-<h1>Question 1</h1>
+<div id="question-1" class="section level2">
+<h2>Question 1</h2>
 <p>What age group is most likely to receive a traumatic brain injury from which injury mechanism?
 To determine this relationship, I will examine a graph relating the age groups to the different injury mechanisms. As well, I want to observe this in a box plot, allowing easy observation over the median, minimum, and maximum ages these injury mechanisms occur.</p>
 <pre class="r"><code>library(ggplot2)
@@ -65,8 +56,8 @@ ggplot(data =dat)+
 ## $ diagnosed &lt;dbl&gt; 189, 102, 709, 5896, 122, 33, 26, 177, 1332, 29, 12, 11, 63…
 ## $ year      &lt;dbl&gt; 2006, 2006, 2006, 2006, 2006, 2006, 2006, 2006, 2006, 2006,…</code></pre>
 </div>
-<div id="question-2" class="section level1">
-<h1>Question 2</h1>
+<div id="question-2" class="section level2">
+<h2>Question 2</h2>
 <p>As the prevalence of TBI has increased in the military branches, has there been any decrease in the amount of concussions diagnosed throughout the years? If not, has severity at least lessened throughout the years?
 To determine, I will generate a graph to visualize the number of diagnosed and year of diagnoses, as well as a visualization of the severity of the TBI compared to the year of diagnoses</p>
 <pre class="r"><code>ggplot(data = dat2)+
@@ -90,7 +81,7 @@ To determine, I will generate a graph to visualize the number of diagnosed and y
 <p><img src="index_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 # Analysis</p>
 <p>This is another graph depicting the amount diagnosed per year throughout the military. Again, the Army has way more cases each year than any other branch in the military. Again, the number of cases do not change much as time progresses. Analyzing the Army branch box plot, they have significantly more cases than any of the other branches, better analyzed in the first graph for question 2.</p>
-<p>#Question 3
+<p>##Question 3
 Throughout the different data sets, are deaths from TBI severity based?
 To determine, I will create a graphic between the type or severity of the TBI to the deaths for the two data sets that have such data available.</p>
 <pre class="r"><code>graph1&lt;-filter(dat1, type %in% c(&quot;Deaths&quot; ))%&gt;%

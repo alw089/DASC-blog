@@ -31,7 +31,7 @@ The last data set, tbi_military.csv from Tidy Tuesday specifically delves into b
 ```{r}
 glimpse(dat)
 ```
-# Question 1
+## Question 1
 What age group is most likely to receive a traumatic brain injury from which injury mechanism?
 To determine this relationship, I will examine a graph relating the age groups to the different injury mechanisms. As well, I want to observe this in a box plot, allowing easy observation over the median, minimum, and maximum ages these injury mechanisms occur. 
 
@@ -60,7 +60,7 @@ Unintentional falls is one of the most substantial injury mechanisms in the data
 ```{r}
 glimpse(dat2)
 ```
-# Question 2
+## Question 2
 As the prevalence of TBI has increased in the military branches, has there been any decrease in the amount of concussions diagnosed throughout the years? If not, has severity at least lessened throughout the years?
 To determine, I will generate a graph to visualize the number of diagnosed and year of diagnoses, as well as a visualization of the severity of the TBI compared to the year of diagnoses
 
@@ -94,7 +94,7 @@ ggplot(data = dat2)+
 This is another graph depicting the amount diagnosed per year throughout the military. Again, the Army has way more cases each year than any other branch in the military. Again, the number of cases do not change much as time progresses. Analyzing the Army branch box plot, they have  significantly more cases than any of the other branches, better analyzed in the first graph for question 2.
 
 
-#Question 3
+##Question 3
 Throughout the different data sets, are deaths from TBI severity based? 
 To determine, I will create a graphic between the type or severity of the TBI to the deaths for the two data sets that have such data available.
 
