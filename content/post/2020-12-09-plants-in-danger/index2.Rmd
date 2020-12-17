@@ -38,31 +38,46 @@ The next data set, threats.csv, has 6,000 observations and 5 variables. The vari
 The last data set, actions.csv has 3000 observations and 8 variables.
 The variable bionomial_name is factor of 3000 levels that represent the species name (Genus + species). The variable country is factor of 3000 levels that represent the species original location.The variable continent is factor of 3000 levels that represent the species originating continent. The variable group is factor of 3000 levels that represent the taxonomic group the plant belongs to. The variable year_last_seen is factor of 3000 levels the last calendar year the plant was seen.The variable red_list_category is factor of 3000 levels that represent the IUCN Red List category. The variable action_type is factor of 3000 levels that represent the type of action the plant has had.The variable action_taken is factor of 3000 levels that represent a binary of 0 (action not taken) or 1 (action taken).
 
-```{r}
+```{r, echo = TRUE}
 glimpse(dat3)
 ```
-```{r}
+
+```{r, echo = TRUE}
 glimpse(dat4)
 ```
 
 # Question 1
- Which countries in North America currently have the most plants in danger by extinction?
+ Which countries in North America currently have the most plants in danger due to pollution that leads to extinction?
  
 To Determine, filter within the data set, observe at a closer lense to the North American Countries
 ```{r,echo = TRUE}
-filter(dat4, continent %in% c("North America"))%>%
+q1<- filter(dat4, continent %in% c( "North America"))%>%
   filter(year_last_seen == c("2000-2020"))%>%
-  filter(threat_type == "Pollution")%>%
-  filter(red_list_category %in% c("Extinct", "Extinct in the Wild"))
+  count(threat_type)%>%
+  filter(n>1)
+q1
+
 ```
+
 Of the plants that became extinct in 2000-2020, the majority were last seen in America. 16 were from the United States, 2 from Mexico, and only 1 from Panama.Therefore, the United States has a greater pollution problem than the other two countries.  
+```{r, echo = TRUE}
+filter(dat4, group =="Flowering Plant")%>%
+  count(red_list_category)%>%
+  filter(n>1)
 
 
+```
+```{r,echo = TRUE}
+filter(dat4, continent %in% c( "North America"))%>%
+  filter(year_last_seen == c("2000-2020"))%>%
+
+  
+```
 
 # Question 2 
 How much action is being enforced for the plants going extinct in the North American countries?
 To determine, filter the data to match what the threat was and whether or not action was taken to deter that threat. 
-```{r}
+```{r, echo = TRUE}
 action_in_NA<- filter(dat5, action_taken == "1")%>%
   filter(country %in% c("North America", "Mexico", "Canada"))%>%
   filter(year_last_seen == "2000-2020")
@@ -80,14 +95,14 @@ Extinct_in_NA
 There was only 2 plants, Agave Iurida and Gossypium armourianum that saw action being taken out of a list of 228 plants in danger.
 Both plants saw action saw action from Mexico, which means none of the other countries tried to administer any action to control the extent of the danger that the plants are in.
 
-```{r}
+```{r, echo = TRUE}
 glimpse(dat5)
 ```
 
 # Question 3
 Was there an event in recent history that wiped out, or put multiple plant species in danger? 
 To determine, I will create a graphic graphing the year the plants were last seen as well as the threat the plants are/were in. 
-```{r}
+```{r, echo = TRUE}
 
 
 

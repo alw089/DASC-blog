@@ -22,28 +22,36 @@ dat2<- read_csv(here::here("data", "tidytuesday", "data", "2020", "2020-03-24", 
 ```
 ## Traumatic Brain Injury
 
-For this project, I am examining the traumatic brain injury (TBI) within the data set tbi_age.csv file from the Tidy Tuesday website. The data set has 216 observations of 5 variables. The variable age_group is a factor of 231 levels that represents the age groups of victims of TBI. The variable type is a factor of 231 levels that represents the where the victim went to treat their injury, or the effect of the injury. The variable injury_mechanism is a factor of 231 levels that represents how the victim obtained their injury. The variable number_set is a factor of 231 levels that represents the estimated observed cases in 2014.The variable rate_est is a factor of 231 levels that represents the where the victim went to treat their injury.
+For this project, I am examining traumatic brain injuries (TBI) within the data set tbi_age.csv file from the Tidy Tuesday website. The data set has 216 observations of 5 variables. The variable age_group is a factor of 231 levels that represents the age groups of victims of TBI. The variable type is a factor of 231 levels that represents the where the victim went to treat their injury, or the effect of the injury. The variable injury_mechanism is a factor of 231 levels that represents how the victim obtained their injury. The variable number_set is a factor of 231 levels that represents the estimated observed cases in 2014.The variable rate_est is a factor of 231 levels that represents the where the victim went to treat their injury.
 
-With the second, tbi_year.csv data set from Tidy Tuesday website further examines these injuries. The data set has 216 observations of 5 variables. The variable injury_mechanism is a factor of 216 levels that represents how the injury was received. The variable type is a factor of 216 levels that represents went to treat their injury, or the effect of the injury. The variable year is a factor of 216 levels that represents the year of the injury. The variable rate_est is a factor of 216 levels that rate/100,000 in 2014. The variable number_est is a factor of 216 levels that represents estimated observed cases in each year.
+With the second, tbi_year.csv data set from the Tidy Tuesday website it further examines these injuries. The data set has 216 observations of 5 variables. The variable injury_mechanism is a factor of 216 levels that represents how the injuries were received. The variable type is a factor of 216 levels that represents went to treat their injury, or the effect of the injury. The variable year is a factor of 216 levels that represents the year of the injury. The variable rate_est is a factor of 216 levels that rate/100,000 in 2014. The variable number_est is a factor of 216 levels that represents estimated observed cases in each year.
 
-The last data set, tbi_military.csv from Tidy Tuesday specifically delves into brain injuries specifically from military personnel. The data set has 450 observations and 5 variables. The variable service is a factor of 450 levels that represents the military branch of the victim's branch. The variable component is a factor of 450 levels that represents whether the victim is active, guard, or reserve). The variable type is a severity of 450 levels that represents the severity of the injury. The variable diagnosed is a factor of 450 levels that represents the number of diagnoses per year. The variable year is a factor of 450 levels that represents year the injury was observed.
+The last data set, tbi_military.csv from Tidy Tuesday specifically delves into brain injuries from military personnel. The data set has 450 observations and 5 variables. The variable service is a factor of 450 levels that represents the military branch of the victim's branch. The variable component is a factor of 450 levels that represents whether the victim is active, guard, or reserve). The variable type is a severity of 450 levels that represents the severity of the injury. The variable diagnosed is a factor of 450 levels that represents the number of diagnoses per year. The variable year is a factor of 450 levels that represents year the injury was observed.
 
 ```{r}
 glimpse(dat)
-
 ```
 # Question 1
 What age group is most likely to receive a traumatic brain injury from which injury mechanism?
 To determine this relationship, I will examine a graph relating the age groups to the different injury mechanisms. As well, I want to observe this in a box plot, allowing easy observation over the median, minimum, and maximum ages these injury mechanisms occur. 
 
 ```{r}
+
 library(ggplot2)
+ggplot(data =dat)+
+  geom_point(mapping = aes(x = age_group, y = rate_est, color = injury_mechanism ))+
+  xlab("Age Group") +
+  ylab("Number of Injuries") +
+  theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
+  ggtitle("Most common injurt mechanisms per age group")
+
 ggplot(data =dat)+
   geom_point(mapping = aes(x = age_group, y = number_est, color = injury_mechanism ))+
   xlab("Age Group") +
   ylab("Number of Injuries") +
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
   ggtitle("Most common injurt mechanisms per age group")
+
 ```
 Unintentional falls is one of the most substantial injury mechanisms in the data, with it being the greatest reason for almost all the age groups, and being the greatest out of the total group by a large margin. Next most prominent injury mechanism is being unintentionally struck by or against an object, being the second largest for the most of the age groups as well. From this, it appears that there is no correlation between the different types of injury mechanism and the different age groups.
 
@@ -101,11 +109,11 @@ graph1
 
 ```{r}
 graph2<-filter(dat, type %in% c("Deaths" ))%>%
-  ggplot(aes(y = number_est,x= type, color = injury_mechanism))+
-  geom_boxplot(mapping = aes(y= number_est, x= type, color = injury_mechanism))+
+  ggplot(aes(count = type ,x= injury_mechanism, color = injury_mechanism))+
+  geom_boxplot(mapping = aes(count = type, x= injury_mechanism, color = injury_mechanism))+
   theme(axis.text.x = element_text(angle =- 45, hjust = 0))+
   ylab("Type of Injury Mechanism") +
-  xlab("Number of Dea") +
+  xlab("Number of Deaths") +
   ggtitle("Injury mechanisms leading to death")
 graph2
 
